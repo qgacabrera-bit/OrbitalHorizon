@@ -769,6 +769,43 @@ footer {
     visibility: visible;
 }
 
+/* --- New: Chatbot Speech Bubble --- */
+.speech-bubble {
+    position: absolute;
+    bottom: 160px; /* Position above the icon */
+    right: 100px;
+    background: rgba(255, 215, 0, 0.9);
+    color: #1a1a1a;
+    padding: 15px 20px;
+    border-radius: 15px;
+    max-width: 300px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+    z-index: 999;
+}
+
+/* The "tail" of the speech bubble */
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -9px;
+    right: 40px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgba(255, 215, 0, 0.9);
+}
+
+.speech-bubble.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
 .chatbot-container {
     position: fixed;
     bottom: 0px;

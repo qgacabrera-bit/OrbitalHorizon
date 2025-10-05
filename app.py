@@ -300,8 +300,13 @@ def train_model():
     cm = confusion_matrix(y_test, y_pred)
 
     # Confusion matrix plot
+    class_labels = ["False Positive", "Candidate", "Confirmed"]
+    # Ensure we only use labels that are present in the data
+    unique_labels_in_data = np.unique(np.concatenate((y_test, y_pred)))
+    tick_labels = [class_labels[i] for i in unique_labels_in_data]
+
     plt.figure(figsize=(5, 4))
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=tick_labels, yticklabels=tick_labels)
     plt.xlabel("Predicted")
     plt.ylabel("Actual")
     plt.tight_layout()

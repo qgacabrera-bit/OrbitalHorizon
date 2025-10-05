@@ -444,6 +444,51 @@ input.invalid {
     text-decoration: underline;
 }
 
+/* --- Tooltip Styles --- */
+.info-icon {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+    cursor: help;
+}
+
+.info-icon i {
+    transition: color 0.3s, transform 0.3s;
+}
+
+.info-icon:hover i {
+    transform: scale(1.1);
+    color: #ffd700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+}
+
+.info-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%; /* Position above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    font-size: 0.9em;
+    font-weight: normal;
+    white-space: normal; /* Allow text to wrap */
+    width: 250px; /* Set a fixed width for the tooltip */
+    line-height: 1.4; /* Improve readability of wrapped text */
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.info-icon:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* --- New Sample Controls --- */
 .sample-controls {
     display: flex;

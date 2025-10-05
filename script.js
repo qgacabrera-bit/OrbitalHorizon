@@ -57,6 +57,8 @@ const chatbotContainer = document.querySelector('.chatbot-container');
 const planetNavNext = document.getElementById('nav-next-btn');
 const planetNavBack = document.getElementById('nav-back-btn');
 
+let hasWelcomed = false; // Flag to ensure welcome happens only once
+
 // This logic should only apply to the homepage which has a hero section.
 if (heroSection) {
     const aboutSection = document.getElementById('about');
@@ -76,7 +78,16 @@ if (heroSection) {
         // A 50% threshold works well.
         const showChatbot = window.pageYOffset > window.innerHeight * 0.5;
         if (chatbotContainer) {
-            chatbotContainer.classList.toggle('chatbot-container--visible', showChatbot);
+            const isVisible = chatbotContainer.classList.contains('chatbot-container--visible');
+            if (showChatbot && !isVisible) {
+                chatbotContainer.classList.add('chatbot-container--visible');
+                if (!hasWelcomed) {
+                    showWelcomeBubble();
+                    hasWelcomed = true;
+                }
+            } else if (!showChatbot && isVisible) {
+                chatbotContainer.classList.remove('chatbot-container--visible');
+            }
         }
     }
 
@@ -113,6 +124,18 @@ if (heroSection) {
     }, false);
 } 
 
+function showWelcomeBubble() {
+    const bubble = document.getElementById('chatbot-welcome-bubble');
+    if (!bubble) return;
+
+    // Show the bubble
+    bubble.classList.add('visible');
+
+    // Hide it after 8 seconds
+    setTimeout(() => {
+        bubble.classList.remove('visible');
+    }, 8000);
+}
 // --- Fade-in sections on scroll ---
 const sectionsToFade = document.querySelectorAll('.fade-in-section');
 

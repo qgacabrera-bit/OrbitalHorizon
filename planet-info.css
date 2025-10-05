@@ -79,6 +79,28 @@
     font-weight: normal;
 }
 
+/* --- Tooltip Styles from dataprocess.css for consistency --- */
+.info-icon {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+    cursor: help;
+}
+
+.info-icon i {
+    transition: color 0.3s, transform 0.3s;
+}
+
+.info-icon:hover i {
+    transform: scale(1.1);
+    color: #ffd700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+}
+
+/* Note: The .info-icon::after pseudo-element for the tooltip box itself
+   is defined in dataprocess.css and will be loaded on the data-processing page.
+   For the planet simulator, these styles are in planet.css. */
+
 @media (max-width: 768px) {
     .planet-info-panel {
         top: 150px;

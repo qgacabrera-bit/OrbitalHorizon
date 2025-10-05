@@ -370,7 +370,10 @@ trainBtn.addEventListener("click", async () => {
 
     // 🔹 Metrics
     trainingHTML += `<div class="metrics-grid">`;
-    trainingHTML += `<div class="metric-card"><h4>Accuracy</h4><p>${(result.accuracy * 100).toFixed(2)}%</p></div>`;
+    trainingHTML += `<div class="metric-card">
+                        <h4>Accuracy <span class="info-icon" data-tooltip="Measures the percentage of correct predictions out of all total predictions. A higher value is better."><i class="fas fa-info-circle"></i></span></h4>
+                        <p>${(result.accuracy * 100).toFixed(2)}%</p>
+                     </div>`;
     if(result.auc_score) {
       trainingHTML += `<div class="metric-card"><h4>ROC AUC Score</h4><p>${result.auc_score.toFixed(3)}</p></div>`;
     }
@@ -383,7 +386,7 @@ trainBtn.addEventListener("click", async () => {
     const cm_src = `data:image/png;base64,${result.confusion_matrix_plot}`;
     trainingHTML += `<div class="plot-card">
                         <div class="plot-header">
-                            <h4>Confusion Matrix</h4>
+                            <h4>Confusion Matrix <span class="info-icon" data-tooltip="A table showing the model's performance. The diagonal shows correct predictions, while off-diagonal values show where the model made mistakes."><i class="fas fa-info-circle"></i></span></h4>
                             <a href="${cm_src}" download="confusion_matrix.png" class="download-btn" title="Download Plot"><i class="fas fa-download"></i></a>
                         </div>
                         <img src="${cm_src}" alt="Confusion Matrix">
@@ -669,6 +672,7 @@ predictWithCustomBtn.addEventListener("click", async () => {
     }
 
     trainingResultsDiv.innerHTML = predictionHTML;
+
     downloadPredictionsBtn.style.display = "inline-block";
 
     // Restore the upload section if it was hidden
@@ -874,4 +878,3 @@ async function runSinglePrediction() {
         console.error("❌ Single prediction error:", err);
     }
 }
- 
