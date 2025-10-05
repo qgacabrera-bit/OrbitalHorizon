@@ -1,8 +1,8 @@
 const preprocessingResultsDiv = document.getElementById("preprocessing-results");
 const preprocessingHeader = document.getElementById("preprocessing-header");
 const trainingResultsDiv = document.getElementById("training-results");
-const resultsContainer = document.getElementById("results-container");
-const trainControlsSection = document.getElementById("trainControlsSection"); // This ID is in the new HTML
+const resultsContainer = document.getElementById("results-container"); 
+const trainControlsSection = document.getElementById("trainControlsSection");
 const trainBtn = document.getElementById("trainBtn");
 const modelSelect = document.getElementById("modelSelect");
 const predictBtn = document.getElementById("predictBtn");
@@ -20,12 +20,10 @@ const resetBtn = document.getElementById("resetBtn");
 const processingOverlay = document.getElementById("processing-overlay");
 const processingOverlayText = document.getElementById("processing-overlay-text");
 const uploadSection = document.getElementById("uploadSection");
-
-// --- New Sample Dataset Controls ---
+// --- Sample Dataset Controls ---
 const sampleDatasetSelect = document.getElementById("sampleDatasetSelect");
 const runSampleBtn = document.getElementById("runSampleBtn");
 const downloadSampleLink = document.getElementById("downloadSampleLink");
-
 // --- Single Prediction Elements ---
 const singlePredictBtn = document.getElementById("singlePredictBtn");
 const singlePredictionResultDiv = document.getElementById("single-prediction-result");
@@ -33,7 +31,6 @@ const clearSinglePredictBtn = document.getElementById("clearSinglePredictBtn");
 const singlePredictionHeader = document.getElementById("single-prediction-header");
 const singlePredictionValidationError = document.getElementById("single-prediction-validation-error");
 const singlePredictionBody = document.getElementById("single-prediction-body");
-
 // --- Collapsible Preprocessing Section ---
 if (preprocessingHeader) {
     preprocessingHeader.addEventListener("click", () => {
@@ -43,7 +40,6 @@ if (preprocessingHeader) {
         icon.classList.toggle("fa-chevron-down");
     });
 }
-
 // --- Collapsible Single Prediction Section ---
 if (singlePredictionHeader) {
     singlePredictionHeader.addEventListener("click", () => {
@@ -54,18 +50,15 @@ if (singlePredictionHeader) {
     });
 }
 
-
 modelSelect.addEventListener("change", () => {
   const isXGB = modelSelect.value === "xgb";
   // Show the tuning checkbox container only if XGB is selected
   tuneXGBContainer.style.display = isXGB ? "flex" : "none";
-  
   // Show the params div only if XGB is selected AND the checkbox is checked
   xgbParamsDiv.style.display = isXGB && tuneXGBCheckbox.checked ? "flex" : "none";
 });
 
 tuneXGBCheckbox.addEventListener("change", () => {
-    // When the checkbox changes, toggle the visibility of the params div
     // This only has an effect if XGB is the selected model
     if (modelSelect.value === "xgb") {
         xgbParamsDiv.style.display = tuneXGBCheckbox.checked ? "flex" : "none";
@@ -152,15 +145,12 @@ if (singlePredictBtn) {
 
 if (clearSinglePredictBtn) {
     clearSinglePredictBtn.addEventListener("click", () => {
-        // Clear all input fields in the single prediction form
         document.getElementById("sp-radius").value = '';
         document.getElementById("sp-temp").value = '';
         document.getElementById("sp-insol").value = '';
         document.getElementById("sp-period").value = '';
         document.getElementById("sp-stellar-temp").value = '';
         document.getElementById("sp-stellar-radius").value = '';
-
-        // Hide and clear the result div
         singlePredictionResultDiv.innerHTML = '';
         singlePredictionResultDiv.style.display = 'none';
 
@@ -170,8 +160,7 @@ if (clearSinglePredictBtn) {
     });
 }
 
-
-// --- New: Handle Sample Dataset Runs ---
+// --- Handle Sample Dataset Runs ---
 async function runSample(datasetName) {
   // 1. Reset the workbench to a clean state
   await resetWorkbench();
@@ -184,7 +173,6 @@ async function runSample(datasetName) {
   processingOverlay.style.display = "flex";
   processingOverlayText.textContent = `Running ${datasetName} sample...`;
   
-
   try {
     // 3. Fetch the sample dataset file from the backend
     const response = await fetch(`https://project-oracle.onrender.com/download_sample/${datasetName}`);
@@ -194,8 +182,7 @@ async function runSample(datasetName) {
     const blob = await response.blob();
     const file = new File([blob], `${datasetName}_data.csv`, { type: 'text/csv' });
 
-    // 4. Use the existing uploadAndProcess function to handle the file
-    // We pass the file object directly. The function will handle the rest.
+    // 4. Use the existing uploadAndProcess function to handle the file.
     await uploadAndProcess(file, true); // Pass true to indicate a sample run
 
     // 5. Once preprocessing is done, automatically run prediction
@@ -228,7 +215,7 @@ if (downloadSampleLink && sampleDatasetSelect) {
 }
 
 async function uploadAndProcess(file, isSampleRun = false) {
-  if (!file) return; // No alert needed for sample runs
+  if (!file) return;
 
   preprocessingResultsDiv.innerHTML = ""; // Clear old preprocessing results
   trainingResultsDiv.innerHTML = ""; // Clear old training results
@@ -277,7 +264,6 @@ async function uploadAndProcess(file, isSampleRun = false) {
       updateStep(step2, "⚠️ Missing values info not available.");
     }
 
-    // Step 3: Extracted raw features (Temp & Radius)
     const step3 = addStep("Extracting Temperature & Radius...");
     if (result.temperature_columns.length > 0 || result.radius_columns.length > 0) {
       let html = "";
@@ -311,7 +297,6 @@ async function uploadAndProcess(file, isSampleRun = false) {
       updateStep(step3, "❌ Could not find Temperature & Radius columns.");
     }
 
-    // Step 4: Feature engineered (only engineered cols)
     const step4 = addStep("Normalizing & engineering features...");
     if (result.extracted_normalized && Array.isArray(result.extracted_normalized) && result.extracted_normalized.length > 0) {
       let keys = Object.keys(result.extracted_normalized[0]);
@@ -325,7 +310,6 @@ async function uploadAndProcess(file, isSampleRun = false) {
       updateStep(step4, "⚠️ No engineered features found.");
     }
 
-    // Step 5: Target column
     const step5 = addStep("Extracting target column...");
     if (result.targets_raw && Array.isArray(result.targets_raw) && result.targets_raw.length > 0) {
       let rawList = "<pre>" + JSON.stringify(result.targets_raw, null, 2) + "</pre>";
@@ -361,10 +345,8 @@ trainBtn.addEventListener("click", async () => {
   processingOverlay.style.display = "flex";
   processingOverlayText.textContent = "Training model...";
   resultsContainer.style.display = "block";
-
-
   // Collect XGB hyperparameters
-  const n_estimators = parseInt(document.getElementById("nEstimators").value) || 100; // Corrected ID
+  const n_estimators = parseInt(document.getElementById("nEstimators").value) || 100;
   const max_depth = parseInt(document.getElementById("maxDepth").value) || 3;
   const learning_rate = parseFloat(document.getElementById("learningRate").value) || 0.1;
 
@@ -385,7 +367,6 @@ trainBtn.addEventListener("click", async () => {
       return;
     }
 
-
     let trainingHTML = `<div class="step">✅ Model trained successfully!</div>`;
 
     // 🔹 Metrics
@@ -402,7 +383,6 @@ trainBtn.addEventListener("click", async () => {
     // 🔹 Plots
     trainingHTML += `<div class="plots-grid">`;
 
-    // 🔹 Confusion Matrix
     const cm_src = `data:image/png;base64,${result.confusion_matrix_plot}`;
     trainingHTML += `<div class="plot-card">
                         <div class="plot-header">
@@ -412,7 +392,6 @@ trainBtn.addEventListener("click", async () => {
                         <img src="${cm_src}" alt="Confusion Matrix">
                      </div>`;
 
-    // 🔹 ROC Curve (if available)
     if(result.roc_plot){
       const roc_src = `data:image/png;base64,${result.roc_plot}`;
       trainingHTML += `<div class="plot-card">
@@ -424,7 +403,6 @@ trainBtn.addEventListener("click", async () => {
                          </div>`;
     }
 
-    // 🔹 Accuracy Plot (Training History)
     if(result.accuracy_plot && result.accuracy_plot !== "null"){
       const acc_src = `data:image/png;base64,${result.accuracy_plot}`;
       trainingHTML += `<div class="plot-card">
@@ -441,14 +419,11 @@ trainBtn.addEventListener("click", async () => {
     trainingHTML += `</div>`; // end plots-grid
 
     trainingResultsDiv.innerHTML = trainingHTML;
-
-    // Show the download model button
     downloadModelBtn.style.display = "inline-block";
 
     processingOverlay.style.display = "none";
 
   } catch(err){
-    // If training fails, update the step in the preprocessing area
     trainingResultsDiv.innerHTML = `<div class="step">❌ Training Error: ${err.message}</div>`;
     processingOverlay.style.display = "none";
   }
@@ -489,7 +464,6 @@ predictBtn.addEventListener("click", async () => {
 
     let predictionHTML = `<div class="step">✅ Prediction complete! Found ${result.count} potential objects.</div>`;
 
-    // --- New: Count all prediction types ---
     const counts = { 0: 0, 1: 0, 2: 0 };
     const confirmedPlanets = []; // This will now hold data objects
     result.predictions.forEach((pred, index) => {
@@ -559,7 +533,6 @@ predictBtn.addEventListener("click", async () => {
 
     trainingResultsDiv.innerHTML = predictionHTML;
 
-    // Show the download button
     downloadPredictionsBtn.style.display = "inline-block";
 
     // Restore the upload section if it was hidden (e.g., during a sample run)
@@ -622,7 +595,7 @@ predictWithCustomBtn.addEventListener("click", async () => {
         const errorResult = await response.json();
         errorMessage = errorResult.error || errorMessage;
       } catch (e) {
-        // Response was not JSON, do nothing and use the HTTP status error message.
+        // Response was not JSON, use the HTTP status error message.
       }
       throw new Error(errorMessage);
     }
@@ -639,7 +612,6 @@ predictWithCustomBtn.addEventListener("click", async () => {
       }
     }
 
-    // --- This result display logic is identical to the pre-trained model's logic ---
     let predictionHTML = `<div class="step">✅ Prediction with custom model complete! Found ${result.count} potential objects.</div>`;
     const counts = { 0: 0, 1: 0, 2: 0 };
     const confirmedPlanets = [];
@@ -694,7 +666,6 @@ predictWithCustomBtn.addEventListener("click", async () => {
     trainingResultsDiv.innerHTML = predictionHTML;
 
     downloadPredictionsBtn.style.display = "inline-block";
-
     // Restore the upload section if it was hidden
     if (uploadSection) uploadSection.style.display = "flex";
 
@@ -800,7 +771,7 @@ downloadModelBtn.addEventListener("click", async () => {
   }
 });
 
-// --- New: Single Prediction Logic ---
+// --- Single Prediction Logic ---
 async function runSinglePrediction() {
     const featureInputs = [
         { id: "sp-radius", key: "pl_rade" },
@@ -814,7 +785,6 @@ async function runSinglePrediction() {
     let isValid = true;
     const features = {};
 
-    // --- Input Validation ---
     singlePredictionValidationError.style.display = 'none'; // Hide previous errors
     featureInputs.forEach(item => {
         const inputEl = document.getElementById(item.id);
@@ -842,7 +812,6 @@ async function runSinglePrediction() {
     singlePredictionResultDiv.style.display = "block";
     singlePredictionResultDiv.innerHTML = `<div class="step"><span class="loading"></span> Running prediction...</div>`;
 
-    // The model expects Kelvin, so convert the Celsius input.
     features.pl_eqt = features.pl_eqt + 273.15;
 
     try {

@@ -1,13 +1,13 @@
 // --- Planet Generator Logic ---
 const container = document.getElementById('planet-container');
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100000); // Reduced FOV
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100000);
 const renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: true
 });
 
-let pointLight; // Declare the point light globally
+let pointLight;
 let baseLightIntensity = 2.0; // Store the base intensity for pulsing
 let fallbackDirectionalLight; // For when the star is hidden
 let ambientLight; // Declare an ambient light globally
@@ -37,7 +37,7 @@ const infoPanel = document.getElementById('planet-info-panel');
 if (container) {
     camera.aspect = container.clientWidth / container.clientHeight;
     camera.updateProjectionMatrix();
-    renderer.shadowMap.enabled = true; // Enable shadows
+    renderer.shadowMap.enabled = true;
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
@@ -45,7 +45,6 @@ if (container) {
 
 const geometry = new THREE.SphereGeometry(50, 64, 64);
 const textureLoader = new THREE.TextureLoader();
-
 // List of planet texture paths
 const textures = [
     'https://i.imgur.com/zlnvuaI.jpeg',
@@ -73,8 +72,7 @@ const textures = [
     'https://i.imgur.com/ls7CrET.png',
     'https://i.imgur.com/AUDyk0h.png'  
 
-];;
-
+];
 // --- Atmosphere Shaders ---
 const atmosphereVertexShader = `
     varying vec3 vNormal;
@@ -100,7 +98,7 @@ const planetMaterial = new THREE.MeshStandardMaterial({
 });
 const planet = new THREE.Mesh(geometry, planetMaterial);
 planet.castShadow = true;
-planet.targetPosition = new THREE.Vector3(); // For smooth transitions
+planet.targetPosition = new THREE.Vector3();
 planet.receiveShadow = true;
 
 // Create a central object for the star system
@@ -121,7 +119,7 @@ function createAtmosphere(radius = 50, glowColor = new THREE.Color(0x93d5f0), sc
         transparent: true,
         depthWrite: false
     });
-    const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+    const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial); 
     atmosphere.scale.set(scale, scale, scale); // Apply the scale
     return atmosphere;
 }
@@ -138,10 +136,10 @@ function createStarfield() {
     const positions = new Float32Array(starCount * 3);
 
     for (let i = 0; i < starCount; i++) {
-        const i3 = i * 3;
-        positions[i3] = (Math.random() - 0.5) * 35000; // x
-        positions[i3 + 1] = (Math.random() - 0.5) * 35000; // y
-        positions[i3 + 2] = (Math.random() - 0.5) * 35000; // z
+        const i3 = i * 3; 
+        positions[i3] = (Math.random() - 0.5) * 35000;
+        positions[i3 + 1] = (Math.random() - 0.5) * 35000;
+        positions[i3 + 2] = (Math.random() - 0.5) * 35000;
     }
 
     starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -179,7 +177,7 @@ if (renderer.domElement) {
         if (comparisonObject) {
             objectsToIntersect.push(comparisonObject);
         }
-        const intersects = raycaster.intersectObjects(objectsToIntersect, true); 
+        const intersects = raycaster.intersectObjects(objectsToIntersect, true);
 
         if (intersects.length > 0) {
             draggedObject = intersects[0].object.parent === scene ? intersects[0].object : intersects[0].object.parent;
@@ -230,7 +228,7 @@ if (renderer.domElement) {
 }
 
 let comparisonObject = null;
-let currentComparisonBody = null; // To track the name of the current comparison
+let currentComparisonBody = null;
 let storedPlanets = []; // Array to hold multiple stored planets
 const comparisonData = {
     earth: {
@@ -256,7 +254,7 @@ const comparisonData = {
 };
 
 function showComparison(bodyName) {
-    currentComparisonBody = bodyName; // Track the current comparison
+    currentComparisonBody = bodyName;
 
     if (comparisonObject) {
         starSystem.remove(comparisonObject); // Remove from starSystem
@@ -277,7 +275,7 @@ function showComparison(bodyName) {
         let data;
         let compMaterial;
         let atmosphereColor = new THREE.Color(0xffffff); // Default atmosphere
-
+ 
         if (bodyName.startsWith('stored_')) {
             const index = parseInt(bodyName.split('_')[1], 10);
             if (index >= storedPlanets.length) return; // Invalid index
@@ -297,7 +295,7 @@ function showComparison(bodyName) {
         
         const compGeometry = new THREE.SphereGeometry(data.radius, 64, 64);
         comparisonObject = new THREE.Mesh(compGeometry, compMaterial);
-        comparisonObject.castShadow = true;
+        comparisonObject.castShadow = true; 
         comparisonObject.targetPosition = new THREE.Vector3(); // For smooth transitions
         comparisonObject.receiveShadow = true;
 
@@ -340,7 +338,7 @@ function showComparison(bodyName) {
 
         cameraTargetZ = Math.max(distanceForHeight, distanceForWidth) * 1.4;
     } else {
-        currentComparisonBody = null; // Clear tracking when no comparison is active
+        currentComparisonBody = null;
         // When clearing, re-run the main radius update function. This will correctly
         // calculate the planet's solo orbit based on the current star size.
         updatePlanetRadius(radiusInput.value);
@@ -349,7 +347,7 @@ function showComparison(bodyName) {
 
 function storeCustomPlanet() {
     const planetNameInput = document.getElementById('planet-name-input');
-    const planetData = {
+    const planetData = { 
         name: planetNameInput ? planetNameInput.value : 'Custom Planet',
         radius: planet.scale.x * 50,
         texturePath: planetMaterial.map.image.src, // Store the path, not the image data
@@ -382,7 +380,7 @@ function randomizePlanet() {
         // onLoad callback
         (texture) => {
             planetMaterial.map = texture;
-            planetMaterial.needsUpdate = true; // Tell Three.js to update the material
+            planetMaterial.needsUpdate = true;
         },
         undefined,
         (err) => {
@@ -395,7 +393,6 @@ camera.position.z = originalCameraZ;
 
 function updatePlanetRadius(value) {
     if (planet) {
-        // If the input ends in a dot or is empty, don't parse it yet.
         if (typeof value === 'string' && (value.endsWith('.') || value === '')) {
             radiusInput.value = value;
             return;
@@ -404,7 +401,7 @@ function updatePlanetRadius(value) {
         // The 'value' is in Earth Radii. The base size of our sphere geometry is 50.
         // So, a value of 1 (1 Earth Radius) should result in a planet of size 50.
         const earthRadii = parseFloat(value);
-        const newRadius = earthRadii * 50; // Convert Earth Radii to simulator units.
+        const newRadius = earthRadii * 50;
         const scaleFactor = newRadius / 50; // Calculate scale based on base geometry size.
         planet.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
@@ -420,7 +417,7 @@ function updatePlanetRadius(value) {
             if (isRevolutionEnabled) {
                 // Stellar mode: Position planets opposite each other.
                 const starRadius = stellarObject.geometry.parameters.radius * stellarObject.scale.x;
-                const largerPlanetRadius = Math.max(userPlanetRadius, comparisonRadius); // This is newRadius
+                const largerPlanetRadius = Math.max(userPlanetRadius, comparisonRadius);
                 const minGap = 80;
                 const orbitalRadius = starRadius * 1.5 + largerPlanetRadius + minGap;
 
@@ -442,7 +439,7 @@ function updatePlanetRadius(value) {
             if (isRevolutionEnabled) {
                 // Stellar mode: Update orbital radius.
                 const starRadius = stellarObject.geometry.parameters.radius * stellarObject.scale.x;
-                const minGap = 80; // Increased base gap
+                const minGap = 80;
                 const newOrbitalRadius = starRadius * 1.5 + newRadius + minGap; // Make orbit distance more dependent on star size
                 planet.targetPosition.set(newOrbitalRadius, 0, 0);
 
@@ -471,7 +468,6 @@ function updatePlanetRadius(value) {
 }
 
 function updatePlanetTemperature(value) {
-    // If the input ends in a dot or is empty, don't parse it yet.
     if (typeof value === 'string' && (value.endsWith('.') || value.endsWith('-') || value === '')) {
         tempInput.value = value;
         return;
@@ -479,7 +475,7 @@ function updatePlanetTemperature(value) {
 
     const temp = parseFloat(value);
 
-    // --- New, more detailed color mapping for temperature ---
+    // Detailed color mapping for temperature
     let r, g, b;
     if (temp <= -50) {
         // Icy blue/white for very cold planets
@@ -526,7 +522,6 @@ function updatePlanetTemperature(value) {
 
 function updateInsolation(value) {
     if (pointLight && fallbackDirectionalLight) {
-        // If the input ends in a dot or is empty, don't parse it yet.
         if (typeof value === 'string' && (value.endsWith('.') || value === '')) {
             insolationInput.value = value;
             return;
@@ -575,7 +570,7 @@ function updateStellarRadius(value) {
 
 function updateStellarTemperature(value) {
     if (stellarObject && pointLight) {
-        if (typeof value === 'string' && (value.endsWith('.') || value === '')) {
+        if (typeof value === 'string' && (value.endsWith('.') || value === '')) { 
             stellarTempInput.value = value;
             return;
         }
@@ -594,7 +589,6 @@ function updateStellarTemperature(value) {
 
         stellarObject.material.emissive.setRGB(r, g, b); // Change the star's core emissive color
         starAtmosphere.material.uniforms.uGlowColor.value.setRGB(r, g, b); // Change the atmosphere's glow color
-        // pointLight.color.setRGB(r, g, b); // Keep the light white for better visibility of the planet's texture
 
         stellarTempInput.value = temp;
         stellarTempSlider.value = temp;
@@ -602,7 +596,7 @@ function updateStellarTemperature(value) {
 }
 
 function updateOrbitalPeriod(value) {
-    if (typeof value === 'string' && (value.endsWith('.') || value === '')) {
+    if (typeof value === 'string' && (value.endsWith('.') || value === '')) { 
         periodInput.value = value;
         return;
     }
@@ -612,7 +606,7 @@ function updateOrbitalPeriod(value) {
 }
 
 function toggleStarSystem(isVisible) {
-    isRevolutionEnabled = isVisible; // Set the flag first
+    isRevolutionEnabled = isVisible;
 
     // Toggle visibility of stellar controls
     const stellarControls = [
@@ -699,7 +693,6 @@ function initializeFromURL() {
             toggleStarSystem(true);
         }
 
-        // --- Temperature Handling ---
         const tempInKelvin = parseFloat(temp || 0);
         // Convert Kelvin to Celsius for the internal color/slider logic
         const tempInCelsius = tempInKelvin - 273.15;
@@ -860,7 +853,7 @@ function updatePlanetInsights() {
     const summaryEl = document.getElementById('insight-summary');
 
     // --- Planet Type Logic ---
-    let planetType = "Unknown";
+    let planetType = "Unknown"; 
     if (radius > 15) {
         planetType = "Gas Giant";
     } else if (radius > 4) {
@@ -908,7 +901,7 @@ function animate() {
     }
 
     const scaledDeltaTime = deltaTime * timeScale;
-    simulatedDays += scaledDeltaTime; // Accumulate simulated days based on time scale
+    simulatedDays += scaledDeltaTime;
 
     // Update the day counter display
     const dayCounterDisplay = document.getElementById('day-counter-display');
@@ -918,16 +911,16 @@ function animate() {
 
     if (!isDragging) {
         if (planet) {
-            planet.rotation.y += 0.005 * timeScale; // Axial rotation
+            planet.rotation.y += 0.005 * timeScale;
         }
         if (comparisonObject) {
-            comparisonObject.rotation.y += 0.002 * timeScale; // Axial rotation
+            comparisonObject.rotation.y += 0.002 * timeScale;
         }
         if (stellarObject) {
-            stellarObject.rotation.y += 0.001 * timeScale; // Slow star surface rotation
+            stellarObject.rotation.y += 0.001 * timeScale;
         }
         if (starAtmosphere) {
-            starAtmosphere.rotation.y += 0.0005 * timeScale; // Slow corona rotation
+            starAtmosphere.rotation.y += 0.0005 * timeScale;
         }
         if (stellarObject && stellarObject.visible) {
             // Add a pulsing effect to the star's corona and light
@@ -990,13 +983,13 @@ function init() {
     randomizePlanet();
     // Create the stellar object (sun)
     const stellarGeometry = new THREE.SphereGeometry(30, 64, 64); // Adjust size as needed
-    const sunTexture = textureLoader.load('https://i.imgur.com/zlnvuaI.jpeg'); // Replace with your sun texture link
+    const sunTexture = textureLoader.load('https://i.imgur.com/zlnvuaI.jpeg');
     const stellarMaterial = new THREE.MeshStandardMaterial({
         map: sunTexture,
         emissive: 0xffffff, // Make it glow
         emissiveMap: sunTexture, // Use the texture for the glow map
         emissiveIntensity: 1.0 // Keep base intensity moderate
-    });
+    }); 
     stellarObject = new THREE.Mesh(stellarGeometry, stellarMaterial);
     stellarObject.receiveShadow = false; // The star should not receive shadows
     stellarObject.castShadow = false; // The star itself doesn't need to cast a shadow
@@ -1010,7 +1003,7 @@ function init() {
     const orbitRadius = 150;
     const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0x555555, side: THREE.DoubleSide });
     orbitLine = new THREE.Mesh(new THREE.RingGeometry(orbitRadius - 0.5, orbitRadius + 0.5, 128), orbitMaterial);
-    orbitLine.rotation.x = Math.PI / 2; // Rotate the ring to be flat on the XZ plane
+    orbitLine.rotation.x = Math.PI / 2;
     starSystem.add(orbitLine);
 
     // Add a PointLight at the center of the star
@@ -1033,7 +1026,7 @@ function init() {
     fallbackDirectionalLight.visible = false;
     scene.add(fallbackDirectionalLight);
 
-    planet.targetPosition.set(150, 0, 0); // Set initial orbital radius for the main planet
+    planet.targetPosition.set(150, 0, 0);
     planet.position.copy(planet.targetPosition); // Set initial position without animation
     createStarfield();
 
@@ -1098,7 +1091,7 @@ function init() {
 
     if (slowDownBtn) {
         slowDownBtn.addEventListener('click', () => {
-            timeScale = Math.max(0.25, timeScale / 2); // Slow down, with a minimum speed
+            timeScale = Math.max(0.25, timeScale / 2);
             speedDisplay.textContent = `x${timeScale}`;
         });
     }
@@ -1117,8 +1110,6 @@ function init() {
             if (isPaused) {
                 icon.classList.remove('fa-pause');
                 icon.classList.add('fa-play');
-                // When pausing, reset timeScale to 1 but keep the display
-                // This makes resuming feel natural.
             } else {
                 icon.classList.remove('fa-play');
                 icon.classList.add('fa-pause');
@@ -1141,12 +1132,12 @@ function init() {
 
     if (zoomInBtn) {
         zoomInBtn.addEventListener('click', () => {
-            cameraTargetZ *= 0.8; // Zoom in by 20%
+            cameraTargetZ *= 0.8;
         });
     }
     if (zoomOutBtn) {
         zoomOutBtn.addEventListener('click', () => {
-            cameraTargetZ *= 1.2; // Zoom out by 20%
+            cameraTargetZ *= 1.2;
         });
     }
     initializeFromURL();

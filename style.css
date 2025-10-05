@@ -26,7 +26,7 @@ body {
 .video-background-container video {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This ensures the video covers the screen without distortion */
+    object-fit: cover;
 }
 
 .logo {
@@ -38,14 +38,14 @@ body {
 .logo-container {
     position: fixed;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Initial centered position for homepage */
-    max-width: 1000px; /* Initial large size */
-    width: 90%; /* Responsive width */
-    z-index: 1002; /* Above nav bars and other content */
-    opacity: 0; /* Start invisible */
-    transition: all 0.5s ease-in-out, opacity 0.8s ease-in-out; /* Add opacity to transition */
-    display: block; /* Make the anchor a block element */
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    max-width: 1000px;
+    width: 90%;
+    z-index: 1002;
+    opacity: 0;
+    transition: all 0.5s ease-in-out, opacity 0.8s ease-in-out;
+    display: block;
 }
 
 .logo-container--scrolled {
@@ -62,7 +62,7 @@ body {
 }
 
 .hero-section {
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
     text-align: center;
     position: relative;
 }
@@ -70,52 +70,56 @@ body {
 .scroll-down-indicator {
     position: absolute;
     bottom: 50px;
+    left: 50%; 
+    transform: translateX(-50%); 
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.mouse-icon {
+    width: 24px;
+    height: 40px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    position: relative;
+}
+
+.scroll-wheel {
+    display: block;
+    width: 4px;
+    height: 8px;
+    background-color: #fff;
+    border-radius: 2px;
+    position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    text-decoration: none;
-    width: 30px;
-    height: 50px;
+    animation: scroll-anim 1.5s infinite ease-in-out;
 }
 
-.scroll-down-line-mask {
-    position: relative;
-    width: 2px; /* Line thickness */
-    height: 100%;
-    margin: 0 auto;
-    overflow: hidden; /* This will mask the line animation */
-}
-
-.scroll-down-indicator span {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    position: absolute;
-    top: -100%; /* Start above the mask */
-    animation: wipe-down 1.5s infinite ease-in-out;
-}
-
-@keyframes wipe-down {
+@keyframes scroll-anim {
     0% {
-        top: -100%; /* Start hidden above */
+        top: 8px;
+        opacity: 1;
     }
-    50% {
-        top: 0; /* Wipe down in to view */
-    }
-    100% {
-        top: 100%; /* Wipe down out of view */
-    }
+    100% { top: 20px; opacity: 0; }
 }
 
 .top-nav {
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(10px);
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1.5rem; 
     position: fixed;
-    top: -100px; /* Start hidden above the viewport */
+    top: -100px;
     left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
-    z-index: 1000; 
+    transform: translateX(-50%);
+    z-index: 1000;
     opacity: 0; /* Start invisible for fade-in effect */
     transition: top 0.4s ease-in-out, opacity 0.4s ease-in-out; /* Animate top and opacity */
     box-sizing: border-box;
@@ -127,7 +131,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Center the group of items */
+    justify-content: center;
     gap: 20px; /* Set a consistent gap between items */
 }
 
@@ -139,8 +143,8 @@ body {
 }
 
 .top-nav--visible {
-    top: 20px; /* Slides the nav bar into view with some top margin */
-    opacity: 1; /* Make it fully visible */
+    top: 20px;
+    opacity: 1; 
 }
 
 
@@ -162,7 +166,6 @@ h1 {
 }
 
 main {
-    /* Make main container full width and remove margins */
     padding: 0;
     background: transparent;
     margin: 0;
@@ -182,14 +185,13 @@ main {
     border-radius: 0;
     box-shadow: none;
     color: #fff;
-    /* This container should allow its children (sections) to be full-width */
     flex-grow: 1; /* Allow this element to grow and push the footer down */
 }
 
 /* --- 3D Planet Navigation Container --- */
 #planet-nav-container {
     width: 100vw;
-    height: 100vh; /* Make it fill the full viewport height */
+    height: 100vh;
     margin: 0;
     position: relative;
 }
@@ -231,7 +233,7 @@ main {
     text-align: center;
     z-index: 5; /* Below buttons but above canvas */
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-    opacity: 0;
+    opacity: 0; 
     transition: opacity 0.4s ease-in-out;
     pointer-events: none; /* Prevents it from blocking clicks on the canvas */
     text-transform: uppercase;
@@ -272,15 +274,15 @@ main > section {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* This creates the parallax effect */
-    overflow: hidden; /* This is crucial for containing the absolute video */
+    background-attachment: fixed; 
+    overflow: hidden; 
     color: #fff;
     box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.6);
 }
 
 /* New styles for the video backgrounds within sections */
 .section-video-background {
-    position: fixed; /* Change to fixed for parallax effect */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -331,7 +333,7 @@ body:has(> main > #team.team-section) #team {
 .methodology-navigator {
     position: relative;
     width: 100%;
-    overflow: hidden; /* Hides the other steps */
+    overflow: hidden;
 }
 
 .methodology-steps-container {
@@ -422,7 +424,7 @@ body:has(> main > #team.team-section) #team {
 
 /* Specific style for the data processing page content */
 .processing-section {
-    max-width: 1200px; /* Give it a comfortable max width */
+    max-width: 1200px; 
     margin: 0 auto; /* Center the section horizontally */
     padding: 2rem;
     background: rgba(0,0,0,0.5);
@@ -431,18 +433,17 @@ body:has(> main > #team.team-section) #team {
 
 /* Specific style for the data processing page content */
 .processing-section {
-    max-width: 1200px; /* Give it a comfortable max width */
+    max-width: 1200px; 
     margin: 0 auto; /* Center the section horizontally */
     padding: 2rem;
     background: rgba(0,0,0,0.5);
     border-radius: 8px;
 }
 
-/* New layout for content within a section */
 .content-row {
     display: flex;
     gap: 2rem;
-    align-items: flex-start; /* Align items to the top */
+    align-items: flex-start;
 }
 
 /* Make the children of the row flexible */
@@ -453,11 +454,10 @@ body:has(> main > #team.team-section) #team {
     flex: 1 1 50%; /* Take up half the space */
 }
 .content-row > .team-grid {
-    flex: 1; /* Allow the team grid to take full width inside its row */
+    flex: 1; 
 }
 
 /* --- Fade-in Animation on Scroll --- */
-/* The section itself will only fade in, not move. */
 .fade-in-section {
     opacity: 0;
     transition: opacity 0.8s ease-out;
@@ -482,7 +482,7 @@ footer {
     padding: 0.25rem 0;
     background: rgba(0,0,0,0.7);
     color: #fff;
-    margin-top: 2rem; /* Add some space above the footer */
+    margin-top: 2rem; 
 }
 
 .justified-text {
@@ -493,6 +493,20 @@ footer {
 .center-text {
     text-align: center;
     font-style: italic;
+}
+
+.disclaimer-text {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #ddd;
+    text-align: center;
+    margin: 10px auto 20px auto;
+    padding: 10px 20px;
+    line-height: 1.4;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid #8e8eef;
+    border-radius: 0 8px 8px 0;
 }
 
 .section-title {
@@ -506,7 +520,7 @@ footer {
 
 .section-intro {
     text-align: center;
-    max-width: 800px;
+    max-width: 800px; 
     margin: -15px auto 30px auto; /* Negative top margin to pull it closer to the title */
     color: #b0b0b0;
     font-style: italic;
@@ -515,7 +529,6 @@ footer {
 
 .gallery-section {
     position: relative;
-    /* min-height and margin are handled by the new section styles */
 }
 
 /* Video Container for Responsiveness */
@@ -544,7 +557,7 @@ footer {
 }
 
 .gallery-item {
-    position: relative; /* Set as the positioning context */
+    position: relative;
     height: 260px; /* Set a fixed height for the card */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
@@ -562,7 +575,7 @@ footer {
 .gallery-item-front {
     background: #1a1a1a;
     border-radius: 8px;
-    z-index: 2; /* Keep the front on top initially */
+    z-index: 2;
     display: flex;
     flex-direction: column;
 }
@@ -576,7 +589,7 @@ footer {
 }
 
 .gallery-item-back {
-    z-index: 1; /* Positioned behind the front card */
+    z-index: 1;
     transform: translateY(50px) scale(0.8); /* Start hidden and scaled down */
     opacity: 0;
     display: flex;
@@ -585,18 +598,18 @@ footer {
 }
 
 .gallery-item:hover .gallery-item-back {
-    transform: translateY(0); /* Slide up into view */
-    opacity: 10; /* Make the back image visible on hover */
-    z-index: 3; /* Ensure it appears on top of the front card */
+    transform: translateY(0);
+    opacity: 10;
+    z-index: 3;
 }
 
 .gallery-item:hover .gallery-item-front {
-    transform: translateY(100%) scale(0.0); /* Slide the front card up and away */
+    transform: translateY(100%) scale(0.0);
     opacity: 0.5;
 }
 
 .gallery-item-front img {
-    height: 200px; /* Re-asserting this rule for specificity */
+    height: 200px;
     width: 100%;
     object-fit: cover; /* Ensure front image is always cropped */
 }
@@ -643,7 +656,7 @@ footer {
     padding: 30px;
     box-sizing: border-box;
     text-align: center;
-    position: relative; /* Needed for positioning the details panel */
+    position: relative;
     overflow: hidden; /* Hides the details panel when it's outside the card */
 }
 
@@ -683,10 +696,10 @@ footer {
     opacity: 0;
     transform: translateY(50px); /* Start slightly below */
     transition: opacity 0.4s 0.2s ease-out, transform 0.4s 0.2s ease-out;
-    display: flex;
+    display: flex; 
     flex-direction: column;
-    justify-content: flex-end; /* Align content to the bottom */
-    text-align: left; /* Align text to the left */
+    justify-content: flex-end;
+    text-align: left;
 }
 
 .team-member-details h4 { font-size: 1.2em; margin: 0; color: #fff; }
@@ -717,11 +730,11 @@ footer {
 
 /* ---- Side Navigation Styles ---- */
 .side-nav {
-    position: fixed; 
+    position: fixed;
     top: 50%;
-    right: 20px; /* Keep it in its final position */
-    transform: translateY(-50%); 
-    z-index: 100; 
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 100;
     padding: 10px;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 8px;
@@ -745,7 +758,7 @@ footer {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
-    border-left: 2px solid transparent; 
+    border-left: 2px solid transparent;
     transition: all 0.3s ease;
     /* Added for icon alignment */
     display: flex;
@@ -772,7 +785,7 @@ footer {
 /* --- New: Chatbot Speech Bubble --- */
 .speech-bubble {
     position: absolute;
-    bottom: 160px; /* Position above the icon */
+    bottom: 160px;
     right: 100px;
     background: rgba(255, 215, 0, 0.9);
     color: #1a1a1a;
@@ -809,7 +822,7 @@ footer {
 .chatbot-container {
     position: fixed;
     bottom: 0px;
-    right: -200px; /* Start hidden off-screen */
+    right: -200px;
     z-index: 1000;
     transition: right 0.3s ease-in-out;
 }
@@ -821,7 +834,7 @@ footer {
 .chatbot-icon {
     width: 175px;
     height: 175px;
-    border-radius: 0; 
+    border-radius: 0;
     background: transparent;
     display: flex;
     justify-content: center;
@@ -851,12 +864,12 @@ footer {
     background-color: #333;
     border: 1px solid #555;
     color: #e0e0e0;
-    font-size: 10px; /* Made smaller */
+    font-size: 10px;
     cursor: pointer;
-    margin: 0; /* Margin is handled by grid gap */
-    padding: 4px 8px; /* Reduced padding */
-    text-align: center; /* Center text within the button */
-    border-radius: 20px; /* Pill shape */
+    margin: 0;
+    padding: 4px 8px;
+    text-align: center;
+    border-radius: 20px;
     transition: background-color 0.3s, border-color 0.3s;
     flex-shrink: 0; /* Prevent buttons from shrinking */
 }
@@ -868,15 +881,15 @@ footer {
 
 .question-buttons-container {
     padding: 5px 10px;
-    display: grid;
+    display: grid; 
     grid-template-columns: 1fr 1fr; /* Two equal columns */
-    grid-template-rows: auto auto;    /* Two rows with automatic height */
-    gap: 5px;                          /* Space between buttons */
+    grid-template-rows: auto auto;
+    gap: 5px;
     min-height: 60px; /* Reserve space to prevent layout shift */
 }
 
 .chat-window {
-    width: 350px;  /* Made wider */
+    width: 350px;
     height: 450px; /* Made taller */
     background: #1a1a1a;
     border: 1px solid #444;
@@ -973,7 +986,7 @@ footer {
 .chat-input-container {
     display: flex;
     padding: 10px;
-    border-top: 1px solid #444;
+    border-top: 1px solid #444; 
     background: #1a1a1a; /* Match chat window background */
 }
 
@@ -998,10 +1011,10 @@ footer {
 }
 
 .danger-btn {
-    background-color: #a02c2c; /* A reddish color for reset/danger actions */
+    background-color: #a02c2c;
     color: #fff;
     border: 1px solid #c53d3d;
-    border-radius: 20px; 
+    border-radius: 20px;
 }
 
 .danger-btn:hover {
@@ -1009,10 +1022,10 @@ footer {
 }
 
 .success-btn {
-    background-color: #28a745; /* A green color for success actions */
+    background-color: #28a745;
     color: #fff;
     border: 1px solid #218838;
-    border-radius: 20px; 
+    border-radius: 20px;
 }
 
 .success-btn:hover {
@@ -1050,7 +1063,7 @@ footer {
 .sample-link-btn {
     background-color: #0056b3;
     color: #fff;
-    padding: 10px 15px;
+    padding: 10px 15px; 
     border-radius: 20px; /* Increased for a pill shape */
     text-decoration: none;
     font-weight: bold;
@@ -1082,7 +1095,7 @@ footer {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100vh; 
     background-color: #000;
     z-index: 9999; /* Ensure it's on top of everything */
     display: flex;
@@ -1128,7 +1141,7 @@ footer {
 
 .loading-text {
     margin-top: 30px; /* More space below the spinner */
-    color: #b0b0b0;
+    color: #b0b0b0; 
     font-style: italic; /* Keep italic */
     letter-spacing: 1.5px; /* Slightly more spaced out text */
 }
@@ -1150,7 +1163,7 @@ footer {
     .logo-container--scrolled {
         top: auto;
         max-width: 150px;
-        left: 10px;
+        left: 10px; 
         bottom: 10px; 
     }
 
@@ -1187,12 +1200,12 @@ footer {
     }
 
     .side-nav {
-        right: -200px; 
+        right: -200px;
         padding: 5px; /* Reduce padding */
     }
 
     .side-nav--visible {
-        right: 5px; /* On mobile, slide it closer to the edge */
+        right: 5px;
     }
 
     .side-nav li {
@@ -1206,11 +1219,11 @@ footer {
     }
     
     .top-nav {
-        padding: 0.5rem 1rem; /* Adjust padding */
-        width: 95%; /* Make it slightly wider */
+        padding: 0.5rem 1rem;
+        width: 95%;
     }
     .top-nav ul {
-        flex-wrap: wrap; /* Allow items to wrap */
+        flex-wrap: wrap;
         justify-content: center; /* Center the items */
         gap: 10px 5px; /* Add vertical and horizontal gap */
     }
@@ -1220,7 +1233,7 @@ footer {
     }
 
     .content-row {
-        flex-direction: column; /* Stack items vertically on mobile */
+        flex-direction: column;
         align-items: center;
     }
 
@@ -1228,8 +1241,8 @@ footer {
         width: 45px;
         height: 45px;
         font-size: 1.5rem;
-        bottom: 20px; /* Move to the bottom */
-        transform: none; /* Remove any vertical transform */
+        bottom: 20px;
+        transform: none;
     }
 
     #planet-label {
@@ -1268,10 +1281,8 @@ footer {
 }
 
 .methodology-step.hidden {
-    display: none; /* hide all other steps */
+    display: none;
 }
-
-
 
 .methodology-step-images img {
     width: 32%; /* Keep three side by side */
@@ -1283,11 +1294,26 @@ footer {
 }
 
 .methodology-step-images img:hover {
-    transform: scale(1.2); /* Zoom in */
-    box-shadow: 0 8px 16px rgba(0,0,0,0.8); /* Bigger shadow for emphasis */
-    z-index: 10; /* Bring on top of siblings */
+    transform: scale(1.2);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.8);
+    z-index: 10;
 }
 
+.wakeup-note {
+    background: rgba(255, 215, 0, 0.1);
+    border-left: 3px solid #ffd700;
+    padding: 15px 20px;
+    margin: 20px auto 30px auto;
+    max-width: 800px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+.wakeup-note i {
+    margin-right: 10px;
+    color: #ffd700;
+}
 
 .image-modal {
     position: fixed;

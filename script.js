@@ -2,7 +2,6 @@
 window.addEventListener('load', () => {
     const loadingScreen = document.querySelector('.loading-screen');
     if (loadingScreen) { 
-        // Add a class to trigger the fade-out animation
         loadingScreen.classList.add('loading-screen--hidden');
     }
 });
@@ -12,7 +11,6 @@ const sideNavElement = document.querySelector('nav.side-nav');
 
 if (sideNavElement) {
     const sections = document.querySelectorAll('main [id]');
-    // On mobile, only the top-nav is visible. On desktop, both are.
     const navLinks = document.querySelectorAll('.side-nav .nav-link');
 
     function updateActiveSection() {
@@ -22,14 +20,11 @@ if (sideNavElement) {
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-
             // Highlight when the top of the section is near the top of the viewport.
-            // A 150px offset gives a good feel.
             if (scrollY >= sectionTop - 150 && scrollY < sectionTop + sectionHeight - 150) {
                 current = section.getAttribute('id');
             }
         });
-
         // If scrolled to the very bottom of the page, ensure the last section is active.
         // A 5px buffer accounts for browser inconsistencies.
         const isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 5;
@@ -45,7 +40,6 @@ if (sideNavElement) {
     }
 
     window.addEventListener('scroll', updateActiveSection);
-    // Run initially to set active section on page load
     updateActiveSection();
 }
 
@@ -63,19 +57,15 @@ let hasWelcomed = false; // Flag to ensure welcome happens only once
 if (heroSection) {
     const aboutSection = document.getElementById('about');
     function toggleNavOnScroll() {
-        // Determine the point at which to show the navigation.
-        // This is set to trigger when the top of the 'about' section is 100px from the top of the viewport.
+        // Determine the point at which to show the navigation, relative to the 'about' section.
         const navTriggerPoint = aboutSection ? aboutSection.offsetTop + 400 : window.innerHeight;
         const showMainNavigation = window.pageYOffset > navTriggerPoint;
 
-        // Toggle main navigation visibility
         topNav.classList.toggle('top-nav--visible', showMainNavigation);
         if (sideNav) sideNav.classList.toggle('side-nav--visible', showMainNavigation);
         if (planetNavNext) planetNavNext.classList.toggle('planet-nav-btn--visible', showMainNavigation);
         if (planetNavBack) planetNavBack.classList.toggle('planet-nav-btn--visible', showMainNavigation);
 
-        // Show the chatbot once the user scrolls past the hero section and keep it visible.
-        // A 50% threshold works well.
         const showChatbot = window.pageYOffset > window.innerHeight * 0.5;
         if (chatbotContainer) {
             const isVisible = chatbotContainer.classList.contains('chatbot-container--visible');
@@ -92,10 +82,10 @@ if (heroSection) {
     }
 
     window.addEventListener('scroll', toggleNavOnScroll);
-} else if (topNav) { // --- Logic for all other pages ---
+} else if (topNav) { 
+    // --- Logic for all other pages ---
     let lastScrollTop = 0;
 
-    // Fade in the nav bar and other elements on page load
     setTimeout(() => {
         topNav.classList.add('top-nav--visible');
         if (chatbotContainer) {
@@ -109,18 +99,15 @@ if (heroSection) {
     // Hide on scroll down, show on scroll up
     window.addEventListener('scroll', function() {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
         // Only apply hide/show if scrolled past a certain point (e.g., 100px)
         if (scrollTop > 100) {
             if (scrollTop > lastScrollTop) {
-                // Scrolling Down
                 topNav.classList.remove('top-nav--visible');
             } else {
-                // Scrolling Up
                 topNav.classList.add('top-nav--visible');
             }
         }
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, false);
 } 
 
@@ -128,10 +115,8 @@ function showWelcomeBubble() {
     const bubble = document.getElementById('chatbot-welcome-bubble');
     if (!bubble) return;
 
-    // Show the bubble
     bubble.classList.add('visible');
 
-    // Hide it after 8 seconds
     setTimeout(() => {
         bubble.classList.remove('visible');
     }, 8000);
@@ -140,7 +125,7 @@ function showWelcomeBubble() {
 const sectionsToFade = document.querySelectorAll('.fade-in-section');
 
 const observerOptions = {
-    root: null, // relative to the viewport
+    root: null,
     rootMargin: '0px',
     threshold: 0.1 // Trigger when 10% of the section is visible
 };
@@ -162,7 +147,6 @@ sectionsToFade.forEach(section => {
 const logoContainer = document.querySelector('.logo-container');
 if (heroSection && logoContainer) {
     function animateLogo() {
-        // Add the scrolled class after scrolling a small amount (e.g., 50px)
         if (window.pageYOffset > 50) {
             logoContainer.classList.add('logo-container--scrolled');
         } else {
@@ -173,15 +157,14 @@ if (heroSection && logoContainer) {
     window.addEventListener('scroll', animateLogo);
 } else if (logoContainer) {
     // For any other page, add the 'scrolled' class after a short delay.
-    // This allows the CSS transition for opacity to trigger, creating a fade-in effect.
     setTimeout(() => {
         logoContainer.classList.add('logo-container--scrolled');
-    }, 100); // 100ms delay
+    }, 100);
 }
 
 // --- Methodology Navigator Logic ---
 const methodologyContainer = document.querySelector('.methodology-container');
-const steps = document.querySelectorAll('.methodology-step'); // each step
+const steps = document.querySelectorAll('.methodology-step');
 const prevBtn = document.getElementById('methodology-prev-btn');
 const nextBtn = document.getElementById('methodology-next-btn');
 const navDotsContainer = document.getElementById('methodology-nav-dots');
@@ -203,12 +186,10 @@ for (let i = 0; i < totalSteps; i++) {
 const dots = navDotsContainer.querySelectorAll('.methodology-nav-dot');
 
 function updateMethodologyView() {
-    // Show only the current step
     steps.forEach((step, index) => {
         step.classList.toggle('active', index === currentStep);
         step.classList.toggle('hidden', index !== currentStep);
     });
-
     // Resize container to fit active step
     requestAnimationFrame(() => {
         const activeStep = steps[currentStep];
@@ -225,7 +206,6 @@ function updateMethodologyView() {
     nextBtn.disabled = currentStep === totalSteps - 1;
 }
 
-// Button events
 nextBtn.addEventListener('click', () => {
     if (currentStep < totalSteps - 1) {
         currentStep++;
@@ -240,15 +220,12 @@ prevBtn.addEventListener('click', () => {
     }
 });
 
-// Initialize first step
 updateMethodologyView();
 
-// Select all images in methodology steps
 const stepImages = document.querySelectorAll('.methodology-step-images img');
 const modal = document.getElementById('image-modal');
 const modalImg = document.getElementById('modal-img');
 const closeModal = document.getElementById('close-modal');
-
 // Function to open modal with clicked image
 stepImages.forEach(img => {
     img.addEventListener('click', () => {
@@ -258,12 +235,10 @@ stepImages.forEach(img => {
     });
 });
 
-// Close modal when clicking the X
 closeModal.addEventListener('click', () => {
     modal.classList.add('hidden');
 });
 
-// Optional: close modal when clicking outside the image
 modal.addEventListener('click', e => {
     if (e.target === modal) {
         modal.classList.add('hidden');
