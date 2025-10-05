@@ -118,7 +118,7 @@ async function resetWorkbench() {
 
   // 2. Notify backend to clear its state
   try {
-    await fetch("https://orbital-horizon-backend.onrender.com/reset", {
+    await fetch("https://project-oracle.onrender.com/reset", {
       method: "POST"
     });
     console.log("✅ Backend state cleared.");
@@ -150,7 +150,7 @@ async function runSample(datasetName) {
 
   try {
     // 3. Fetch the sample dataset file from the backend
-    const response = await fetch(`https://orbital-horizon-backend.onrender.com/download_sample/${datasetName}`);
+    const response = await fetch(`https://project-oracle.onrender.com/download_sample/${datasetName}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch sample data. Status: ${response.status}`);
     }
@@ -199,7 +199,7 @@ async function uploadAndProcess(file, isSampleRun = false) {
   formData.append("file", file);
 
   try {
-    const response = await fetch("https://orbital-horizon-backend.onrender.com/upload", {
+    const response = await fetch("https://project-oracle.onrender.com/upload", {
       method: "POST",
       body: formData
     });
@@ -326,7 +326,7 @@ trainBtn.addEventListener("click", async () => {
   const hyperparams = { n_estimators, max_depth, learning_rate };
 
   try {
-    const response = await fetch("https://orbital-horizon-backend.onrender.com/train", {
+    const response = await fetch("https://project-oracle.onrender.com/train", {
       method:"POST",
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify({model, hyperparams})
@@ -417,7 +417,7 @@ predictBtn.addEventListener("click", async () => {
   resultsContainer.style.display = "block";
 
   try {
-    const response = await fetch("https://orbital-horizon-backend.onrender.com/predict", {
+    const response = await fetch("https://project-oracle.onrender.com/predict", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     });
@@ -525,7 +525,7 @@ predictWithCustomBtn.addEventListener("click", async () => {
   formData.append("model_file", modelFile);
 
   try {
-    const response = await fetch("https://orbital-horizon-backend.onrender.com/predict_with_uploaded_model", {
+    const response = await fetch("https://project-oracle.onrender.com/predict_with_uploaded_model", {
       method: "POST",
       body: formData,
     });
@@ -604,7 +604,7 @@ predictWithCustomBtn.addEventListener("click", async () => {
 // Download predictions
 downloadPredictionsBtn.addEventListener("click", async () => {
   try {
-    const response = await fetch("https://orbital-horizon-backend.onrender.com/download_predictions", {
+    const response = await fetch("https://project-oracle.onrender.com/download_predictions", {
       method: "GET"
     });
 
@@ -640,7 +640,7 @@ downloadPredictionsBtn.addEventListener("click", async () => {
 // Download trained model
 downloadModelBtn.addEventListener("click", async () => {
   try {
-    const response = await fetch("https://orbital-horizon-backend.onrender.com/download_model", {
+    const response = await fetch("https://project-oracle.onrender.com/download_model", {
       method: "GET"
     });
 
@@ -697,7 +697,7 @@ async function runSinglePrediction() {
     singlePredictionResultDiv.innerHTML = `<div class="step"><span class="loading"></span> Running prediction...</div>`;
 
     try {
-        const response = await fetch("https://orbital-horizon-backend.onrender.com/predict_single", {
+        const response = await fetch("https://project-oracle.onrender.com/predict_single", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(features)

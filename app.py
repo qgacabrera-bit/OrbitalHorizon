@@ -524,10 +524,11 @@ def reset_state():
 
 @app.route("/download_sample/<dataset_name>", methods=["GET"])
 def download_sample(dataset_name):
+    # Map the short name from the URL to the full GitHub raw URL
     dataset_urls = {
-        "kepler": "https://github.com/qgacabrera-bit/OrbitalHorizon/raw/refs/heads/main/assets/cumulative_2025.09.25_12.58.46.csv",
-        "k2": "https://github.com/qgacabrera-bit/OrbitalHorizon/raw/refs/heads/main/assets/k2pandc_2025.09.25_12.59.27.csv",
-        "tess": "https://github.com/qgacabrera-bit/OrbitalHorizon/raw/refs/heads/main/assets/TOI_2025.09.25_11.42.37.csv"
+        "kepler": "https://raw.githubusercontent.com/qgacabrera-bit/OrbitalHorizon/refs/heads/main/assets/cumulative_2025.09.25_12.58.46.csv",
+        "k2": "https://raw.githubusercontent.com/qgacabrera-bit/OrbitalHorizon/refs/heads/main/assets/k2pandc_2025.09.25_12.59.27.csv",
+        "tess": "https://raw.githubusercontent.com/qgacabrera-bit/OrbitalHorizon/refs/heads/main/assets/TOI_2025.09.25_11.42.37.csv"
     }
 
     url = dataset_urls.get(dataset_name)
