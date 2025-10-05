@@ -70,6 +70,51 @@ footer {
     backdrop-filter: blur(5px);
 }
 
+/* --- New Planet Insights Panel --- */
+#planet-insights-panel {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: rgba(30, 30, 50, 0.7);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    width: 95%;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+
+.insight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    flex: 1;
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.insight-item.insight-summary {
+    flex: 2; /* Make the summary item wider */
+}
+
+.insight-item i {
+    font-size: 1.8em;
+    color: #ffd700;
+    margin-top: 5px;
+}
+
+.insight-item .label {
+    font-size: 0.9em;
+    color: #aaa;
+    text-transform: uppercase;
+}
+
+.insight-item p {
+    margin: 5px 0 0 0;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
 /* New wrapper for all controls */
 #controls-wrapper {
     display: flex;
@@ -367,6 +412,10 @@ input[type="range"]:hover::-moz-range-thumb {
     #ui-panel {
         flex-direction: column; /* Stack sliders vertically */
         padding: 20px;
+    }
+
+    #planet-insights-panel {
+        flex-direction: column;
     }
 
     .slider-container {

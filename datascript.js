@@ -822,7 +822,7 @@ async function runSinglePrediction() {
     singlePredictionResultDiv.style.display = "block";
     singlePredictionResultDiv.innerHTML = `<div class="step"><span class="loading"></span> Running prediction...</div>`;
 
-    // Convert temperature from Celsius (input) to Kelvin (for model)
+    // The model expects Kelvin, so convert the Celsius input.
     features.pl_eqt = features.pl_eqt + 273.15;
 
     try {

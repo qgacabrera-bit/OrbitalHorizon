@@ -51,12 +51,30 @@
                 <div id="single-prediction-body">
                     <p>Enter the parameters of a celestial object to get an instant prediction from our pre-trained model.</p>
                     <div id="single-prediction-form" class="hyperparam-group">
-                        <label>Planet Radius (Earth Radii): <input type="number" id="sp-radius" placeholder="1.0"></label>
-                        <label>Eq. Temperature (K): <input type="number" id="sp-temp" placeholder="288"></label>
-                        <label>Insolation (Earth Flux): <input type="number" id="sp-insol" placeholder="1.0"></label>
-                        <label>Orbital Period (days): <input type="number" id="sp-period" placeholder="365"></label>
-                        <label>Stellar Temperature (K): <input type="number"id="sp-stellar-temp" placeholder="5778"></label>
-                        <label>Stellar Radius (Solar Radii): <input type="number" id="sp-stellar-radius" placeholder="1.0"></label>
+                        <label>Planet Radius (Earth Radii):
+                            <span class="info-icon" data-tooltip="The radius of the planet, measured in multiples of Earth's radius (e.g., 1.0 is the same size as Earth)."><i class="fas fa-info-circle"></i></span>
+                            <input type="number" id="sp-radius" placeholder="1.0">
+                        </label>
+                        <label>Eq. Temperature (°C):
+                            <span class="info-icon" data-tooltip="The planet's equilibrium temperature in Celsius. This is a theoretical temperature if heated only by its star."><i class="fas fa-info-circle"></i></span>
+                            <input type="number" id="sp-temp" placeholder="15">
+                        </label>
+                        <label>Insolation (Earth Flux):
+                            <span class="info-icon" data-tooltip="The amount of radiation the planet receives from its star, relative to what Earth receives from the Sun."><i class="fas fa-info-circle"></i></span>
+                            <input type="number" id="sp-insol" placeholder="1.0">
+                        </label>
+                        <label>Orbital Period (days):
+                            <span class="info-icon" data-tooltip="The number of Earth days it takes for the planet to complete one full orbit around its host star."><i class="fas fa-info-circle"></i></span>
+                            <input type="number" id="sp-period" placeholder="365">
+                        </label>
+                        <label>Stellar Temperature (K):
+                            <span class="info-icon" data-tooltip="The surface temperature of the host star in Kelvin. For reference, our Sun's temperature is about 5778 K."><i class="fas fa-info-circle"></i></span>
+                            <input type="number"id="sp-stellar-temp" placeholder="5778">
+                        </label>
+                        <label>Stellar Radius (Solar Radii):
+                            <span class="info-icon" data-tooltip="The radius of the host star, measured in multiples of our Sun's radius (e.g., 1.0 is the same size as the Sun)."><i class="fas fa-info-circle"></i></span>
+                            <input type="number" id="sp-stellar-radius" placeholder="1.0">
+                        </label>
                     </div>
                     <div id="single-prediction-validation-error" class="validation-error" style="display: none;"></div>
                     <div class="action-buttons">

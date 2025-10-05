@@ -465,6 +465,8 @@ function updatePlanetRadius(value) {
         
         radiusInput.value = earthRadii;
         radiusSlider.value = earthRadii;
+
+        updatePlanetInsights();
     }
 }
 
@@ -518,6 +520,8 @@ function updatePlanetTemperature(value) {
 
     tempInput.value = temp;
     tempSlider.value = temp;
+
+    updatePlanetInsights();
 }
 
 function updateInsolation(value) {
@@ -716,6 +720,8 @@ function initializeFromURL() {
         if (temp) updatePlanetTemperature(tempInCelsius);
 
         // Display the original, correct units in the info panel
+        const planetName = name || "Predicted Planet";
+        document.getElementById('planet-name-header').firstChild.textContent = planetName;
         document.getElementById('info-radius').textContent = `${parseFloat(radius || 0).toFixed(2)} Earth Radii`;
         document.getElementById('info-temp').textContent = `${tempInKelvin.toFixed(2)} K`;
         document.getElementById('info-insol').textContent = `${parseFloat(insol || 0).toFixed(2)} Earth Flux`;
@@ -724,9 +730,6 @@ function initializeFromURL() {
         document.getElementById('info-period').textContent = `${period} days`;
 
         if (name) {
-            const nameHeader = document.getElementById('planet-name-header');
-            nameHeader.firstChild.textContent = name; // Update the text part of the h3
-            
             const planetNameInput = document.getElementById('planet-name-input');
             if (planetNameInput) {
                 planetNameInput.value = name;
@@ -755,6 +758,8 @@ function initializeFromURL() {
                 }
             }
         });
+
+        updatePlanetInsights(); // Update insights for the loaded planet
 
     } else {
         if (infoPanel) {
@@ -828,6 +833,8 @@ function resetToCustomPlanet() {
         icon.classList.remove('fa-play');
         icon.classList.add('fa-pause');
     }
+
+    updatePlanetInsights(); // Update insights on reset
 }
 
 function toggleTopDownView() {
@@ -842,6 +849,53 @@ function toggleTopDownView() {
 
     // Recalculate zoom to ensure it's appropriate for the new view
     updatePlanetRadius(radiusInput.value);
+}
+
+function updatePlanetInsights() {
+    const radius = parseFloat(radiusInput.value);
+    const temp = parseFloat(tempInput.value);
+
+    const habitabilityEl = document.getElementById('insight-habitability');
+    const typeEl = document.getElementById('insight-type');
+    const summaryEl = document.getElementById('insight-summary');
+
+    // --- Planet Type Logic ---
+    let planetType = "Unknown";
+    if (radius > 15) {
+        planetType = "Gas Giant";
+    } else if (radius > 4) {
+        planetType = "Ice Giant";
+    } else if (radius > 1.75) {
+        planetType = "Mini-Neptune";
+    } else if (radius > 1.25) {
+        planetType = "Super-Earth";
+    } else if (radius > 0.5) {
+        planetType = "Rocky Planet";
+    } else {
+        planetType = "Dwarf Planet";
+    }
+    typeEl.textContent = planetType;
+
+    // --- Habitability Logic ---
+    let habitability = "Likely Uninhabitable";
+    let summary = "";
+
+    if (planetType === "Gas Giant" || planetType === "Ice Giant") {
+        habitability = "Not Habitable";
+        summary = "This planet is a gas/ice giant and lacks a solid surface for life as we know it.";
+    } else if (temp < -50) {
+        habitability = "Too Cold";
+        summary = "The surface is likely frozen solid, making liquid water impossible.";
+    } else if (temp > 100) {
+        habitability = "Too Hot";
+        summary = "Surface temperatures are too high for liquid water, which would boil away.";
+    } else {
+        habitability = "Potentially Habitable";
+        summary = "This rocky world exists within the 'Goldilocks Zone' where its temperature could allow for liquid water on its surface—a key ingredient for life.";
+    }
+
+    habitabilityEl.textContent = habitability;
+    summaryEl.textContent = summary;
 }
 
 
@@ -1096,6 +1150,7 @@ function init() {
         });
     }
     initializeFromURL();
+    updatePlanetInsights(); // Initial calculation on page load
     animate();
 }
 
