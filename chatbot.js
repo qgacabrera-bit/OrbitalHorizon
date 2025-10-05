@@ -43,7 +43,8 @@ const chatbotResponses = {
     "what is": "That's a great question! What specifically would you like to know more about?",
 
     // --- New questions added ---
-    "how to use simulator": "You can visit the Interactive Simulator page and follow the on-screen instructions to explore different exoplanets.",
+    "how to use": "You can visit the Interactive Simulator page and follow the on-screen instructions to explore different exoplanets.",
+    "simulator": "You can visit the Interactive Simulator page and follow the on-screen instructions to explore different exoplanets.",
     "can i contribute": "Currently, the project is research-based, but you can explore our Resources section to access the datasets we used.",
     "future plans": "We plan to expand the project to analyze more datasets and improve the machine learning model's accuracy.",
     "contact": "For inquiries, you can reach out to our team via the Contact section on the website.",
@@ -243,4 +244,18 @@ function shuffleArray(array) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+}
+
+function getBotResponse(input) {
+    const normalizedInput = input.toLowerCase();
+
+    // Direct match
+    if (chatbotResponses[normalizedInput]) return chatbotResponses[normalizedInput];
+
+    // Partial match
+    for (const key of Object.keys(chatbotResponses)) {
+        if (normalizedInput.includes(key)) return chatbotResponses[key];
+    }
+
+    return "I'm sorry, I don't have an answer for that right now. Maybe try rephrasing your question?";
 }

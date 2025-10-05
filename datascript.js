@@ -12,6 +12,8 @@ const fileInput = document.getElementById("fileInput");
 const fileNameSpan = document.getElementById("fileName");
 const xgbParamsDiv = document.getElementById("xgbParams");
 const modelFileInput = document.getElementById("modelFileInput");
+const tuneXGBContainer = document.getElementById("tuneXGBContainer");
+const tuneXGBCheckbox = document.getElementById("tuneXGBCheckbox");
 const modelFileNameSpan = document.getElementById("modelFileName");
 const predictWithCustomBtn = document.getElementById("predictWithCustomBtn");
 const resetBtn = document.getElementById("resetBtn");
@@ -54,7 +56,20 @@ if (singlePredictionHeader) {
 
 
 modelSelect.addEventListener("change", () => {
-  xgbParamsDiv.style.display = modelSelect.value === "xgb" ? "flex" : "none";
+  const isXGB = modelSelect.value === "xgb";
+  // Show the tuning checkbox container only if XGB is selected
+  tuneXGBContainer.style.display = isXGB ? "flex" : "none";
+  
+  // Show the params div only if XGB is selected AND the checkbox is checked
+  xgbParamsDiv.style.display = isXGB && tuneXGBCheckbox.checked ? "flex" : "none";
+});
+
+tuneXGBCheckbox.addEventListener("change", () => {
+    // When the checkbox changes, toggle the visibility of the params div
+    // This only has an effect if XGB is the selected model
+    if (modelSelect.value === "xgb") {
+        xgbParamsDiv.style.display = tuneXGBCheckbox.checked ? "flex" : "none";
+    }
 });
 
 // Helper functions
@@ -242,6 +257,11 @@ async function uploadAndProcess(file, isSampleRun = false) {
     // Show training section after successful upload, but NOT for sample runs
     if (!isSampleRun) {
       trainControlsSection.style.display = "block";
+      // Manually trigger the logic to show/hide XGB controls based on the default selection
+      const isXGB = modelSelect.value === "xgb";
+      tuneXGBContainer.style.display = isXGB ? "flex" : "none";
+      // Ensure params are hidden initially since the checkbox is unchecked by default
+      xgbParamsDiv.style.display = "none";
     }
 
     // Display preprocessing details without individual loading spinners

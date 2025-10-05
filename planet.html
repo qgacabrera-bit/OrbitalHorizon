@@ -171,12 +171,37 @@
         </section>
     </main>
 
+        <div class="chatbot-container">
+        <div class="chatbot-icon" onclick="toggleChat()">
+            <img src="https://i.imgur.com/9S44Fwz.png" alt="Chatbot Icon">
+        </div>
+        <div class="speech-bubble" id="chatbot-welcome-bubble">
+            Click on a planet to learn more, or use the arrows to navigate!
+        </div>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header" id="chat-header">
+                <h3>Astra</h3>
+                <span class="close-btn" onclick="toggleChat()">&times;</span>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="bot-message">Welcome to the Interactive Simulator! Use the sliders to create your own custom planet, or load one from the AI Workbench. Ask me anything about the controls!</div>
+            </div>
+            <div class="question-buttons-container" id="question-buttons-container"></div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Ask a question..." onkeypress="handleKeyPress(event)">
+                <button id="send-btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+
     <footer>
         <p>&copy; 2025 Technological Institute of the Philippines</p>
     </footer>
 
     <script src="planet.js"></script>
     <script src="script.js"></script>
+    <script src="chatbot.js"></script>
 
 </body>
 </html>

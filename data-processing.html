@@ -124,6 +124,10 @@
                   <option value="lgbm">LGBMClassifier</option>
                 </select>
               </div>
+              <div id="tuneXGBContainer" class="toggle-container" style="display: none;">
+                <label for="tuneXGBCheckbox">Tune Hyperparameters</label>
+                <input type="checkbox" id="tuneXGBCheckbox">
+              </div>
               <div id="xgbParams" class="hyperparam-group" style="display:none;">
                 <label>N Estimators:
                   <span class="info-icon" data-tooltip="The number of boosting rounds or trees to build. Higher values can improve accuracy but increase training time."><i class="fas fa-info-circle"></i></span>
@@ -185,7 +189,7 @@
                 <span class="close-btn" onclick="toggleChat()">&times;</span>
             </div>
             <div class="chat-messages" id="chat-messages">
-                <div class="bot-message">Hello! I'm Astra, I'm here to answer your questions about Orbital Horizon. What would you like to know?</div>
+                <div class="bot-message">Welcome to the AI Workbench! You can upload data, train models, or use our pre-trained ones to find new planets. Let me know if you have any questions about the process!</div>
             </div>
             <div class="question-buttons-container" id="question-buttons-container"></div>
             <div class="chat-input-container">
