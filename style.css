@@ -1,0 +1,1281 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000; /* Fallback for when video is loading */
+    color: #fff; /* Set default text color */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.video-background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.video-background-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This ensures the video covers the screen without distortion */
+}
+
+.logo {
+    width: 100%; 
+    max-width: 1000px; /* Adjust size as needed */
+    height: auto;
+}
+
+.logo-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Initial centered position for homepage */
+    max-width: 1000px; /* Initial large size */
+    width: 90%; /* Responsive width */
+    z-index: 1002; /* Above nav bars and other content */
+    opacity: 0; /* Start invisible */
+    transition: all 0.5s ease-in-out, opacity 0.8s ease-in-out; /* Add opacity to transition */
+    display: block; /* Make the anchor a block element */
+}
+
+.logo-container--scrolled {
+    top: 15px;
+    left: 15px;
+    max-width: 300px; /* Final small size */
+    transform: translate(0, 0);
+    opacity: 1; /* Fade to visible */
+}
+
+/* On the homepage, make the logo visible immediately in its initial state */
+.hero-section .logo-container {
+    opacity: 1;
+}
+
+.hero-section {
+    height: 100vh; /* Full viewport height */
+    text-align: center;
+    position: relative;
+}
+
+.scroll-down-indicator {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-decoration: none;
+    width: 30px;
+    height: 50px;
+}
+
+.scroll-down-line-mask {
+    position: relative;
+    width: 2px; /* Line thickness */
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden; /* This will mask the line animation */
+}
+
+.scroll-down-indicator span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    position: absolute;
+    top: -100%; /* Start above the mask */
+    animation: wipe-down 1.5s infinite ease-in-out;
+}
+
+@keyframes wipe-down {
+    0% {
+        top: -100%; /* Start hidden above */
+    }
+    50% {
+        top: 0; /* Wipe down in to view */
+    }
+    100% {
+        top: 100%; /* Wipe down out of view */
+    }
+}
+
+.top-nav {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1.5rem;
+    position: fixed;
+    top: -100px; /* Start hidden above the viewport */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    z-index: 1000; 
+    opacity: 0; /* Start invisible for fade-in effect */
+    transition: top 0.4s ease-in-out, opacity 0.4s ease-in-out; /* Animate top and opacity */
+    box-sizing: border-box;
+    border-radius: 50px; /* This creates the circular/pill shape */
+}
+
+.top-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center the group of items */
+    gap: 20px; /* Set a consistent gap between items */
+}
+
+.top-nav .nav-link {
+    border-left: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-nav--visible {
+    top: 20px; /* Slides the nav bar into view with some top margin */
+    opacity: 1; /* Make it fully visible */
+}
+
+
+.about-section {
+    position: relative;
+    z-index: 1; 
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5); 
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 4em;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+main {
+    /* Make main container full width and remove margins */
+    padding: 0;
+    background: transparent;
+    margin: 100vh 0 0 0;
+    max-width: none; 
+    border-radius: 0;
+    box-shadow: none;
+    color: #fff;
+    position: relative;
+}
+
+/* New style for sub-pages to override the 100vh margin */
+.content-main {
+    margin: 0;
+    padding: 80px 0 0 0; /* Add top padding for nav bar, remove others */
+    background: transparent;
+    max-width: none;
+    border-radius: 0;
+    box-shadow: none;
+    color: #fff;
+    /* This container should allow its children (sections) to be full-width */
+    flex-grow: 1; /* Allow this element to grow and push the footer down */
+}
+
+/* --- 3D Planet Navigation Container --- */
+#planet-nav-container {
+    width: 100vw;
+    height: 100vh; /* Make it fill the full viewport height */
+    margin: 0;
+    position: relative;
+}
+
+/* --- Planet Navigation Buttons --- */
+.planet-nav-btn {
+    position: absolute;
+    top: auto;
+    bottom: 50%;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: background 0.3s ease;
+}
+
+.planet-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#nav-back-btn { left: 30px; }
+#nav-next-btn { right: 30px; }
+
+/* --- Planet Label --- */
+#planet-label {
+    position: absolute;
+    bottom: 110px; /* Position it above the navigation buttons */
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: 300;
+    text-align: center;
+    z-index: 5; /* Below buttons but above canvas */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    pointer-events: none; /* Prevents it from blocking clicks on the canvas */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+#planet-label.visible {
+    opacity: 1;
+}
+
+/* --- Planet Description --- */
+#planet-description {
+    position: absolute;
+    bottom: 80px; /* Position it below the label */
+    left: 50%;
+    transform: translateX(-50%);
+    color: #b0b0b0;
+    font-size: 1rem;
+    font-style: italic;
+    text-align: center;
+    z-index: 5;
+    max-width: 400px;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    pointer-events: none; /* Prevents it from blocking clicks */
+    line-height: 1.4;
+}
+
+#planet-description.visible {
+    opacity: 1;
+}
+
+/* --- Diagonal Section Styles --- */
+main > section {
+    position: relative;
+    padding: 100px 20px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* This creates the parallax effect */
+    overflow: hidden; /* This is crucial for containing the absolute video */
+    color: #fff;
+    box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.6);
+}
+
+/* New styles for the video backgrounds within sections */
+.section-video-background {
+    position: fixed; /* Change to fixed for parallax effect */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.section-video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* GIF backgrounds */
+#about {
+    clip-path: polygon(0 5vw, 100% 0, 100% calc(100% - 5vw), 0 100%);
+}
+
+#demo {
+    clip-path: polygon(0 5vw, 100% 0, 100% calc(100% - 5vw), 0 100%);
+    margin-top: -5vw;
+}
+
+#team {
+    clip-path: polygon(0 5vw, 100% 0, 100% 100%, 0 100%);
+    margin-top: -5vw;
+}
+
+body:has(> main > #team.team-section) #team {
+    clip-path: none;
+    margin-top: 0;
+}
+
+#methodology {
+    clip-path: polygon(0 5vw, 100% 0, 100% 100%, 0 100%); 
+    margin-top: -5vw;
+}
+
+.section-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(0,0,0,0.5);
+    border-radius: 8px;
+}
+
+/* --- Methodology Navigator --- */
+.methodology-navigator {
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* Hides the other steps */
+}
+
+.methodology-steps-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 1000%; /* 10 steps * 100% width each */
+}
+
+.methodology-step {
+    flex: 0 0 10%; /* Each step takes up 1/10th of the container width */
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    visibility: hidden;
+}
+
+.methodology-step.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.methodology-step h3 {
+    color: #ffd700;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.methodology-nav-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.methodology-nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.methodology-nav-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.methodology-nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* --- Methodology Nav Dots --- */
+#methodology-nav-dots {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.methodology-nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.methodology-nav-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.methodology-nav-dot.active {
+    background: #ffd700;
+    transform: scale(1.2);
+}
+
+/* Specific style for the data processing page content */
+.processing-section {
+    max-width: 1200px; /* Give it a comfortable max width */
+    margin: 0 auto; /* Center the section horizontally */
+    padding: 2rem;
+    background: rgba(0,0,0,0.5);
+    border-radius: 8px;
+}
+
+/* Specific style for the data processing page content */
+.processing-section {
+    max-width: 1200px; /* Give it a comfortable max width */
+    margin: 0 auto; /* Center the section horizontally */
+    padding: 2rem;
+    background: rgba(0,0,0,0.5);
+    border-radius: 8px;
+}
+
+/* New layout for content within a section */
+.content-row {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start; /* Align items to the top */
+}
+
+/* Make the children of the row flexible */
+.content-row > .video-container {
+    flex: 1 1 50%; /* Take up half the space */
+}
+.content-row > .gallery-grid {
+    flex: 1 1 50%; /* Take up half the space */
+}
+.content-row > .team-grid {
+    flex: 1; /* Allow the team grid to take full width inside its row */
+}
+
+/* --- Fade-in Animation on Scroll --- */
+/* The section itself will only fade in, not move. */
+.fade-in-section {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+}
+
+/* The content inside the section will slide up and fade in. */
+.fade-in-section .section-content {
+    transform: translateY(30px);
+    transition: transform 0.8s ease-out;
+}
+
+.fade-in-section.is-visible .section-content {
+    transform: translateY(0);
+}
+
+footer {
+    text-align: center;
+    padding: 0.25rem 0;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    margin-top: 2rem; /* Add some space above the footer */
+}
+
+.justified-text {
+    text-align: justify;
+    line-height: 1.8;
+}
+
+.center-text {
+    text-align: center;
+    font-style: italic;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #e0e0e0;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.section-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: -15px auto 30px auto; /* Negative top margin to pull it closer to the title */
+    color: #b0b0b0;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.gallery-section {
+    position: relative;
+    /* min-height and margin are handled by the new section styles */
+}
+
+/* Video Container for Responsiveness */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    margin-bottom: 40px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* Image Grid for Gallery */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    position: relative; /* Set as the positioning context */
+    height: 260px; /* Set a fixed height for the card */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.gallery-item-front, .gallery-item-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s ease-in-out;
+}
+
+.gallery-item-front {
+    background: #1a1a1a;
+    border-radius: 8px;
+    z-index: 2; /* Keep the front on top initially */
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery-item-front img {
+    height: 200px; /* Fixed height for the image part */
+    width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.gallery-item-back {
+    z-index: 1; /* Positioned behind the front card */
+    transform: translateY(50px) scale(0.8); /* Start hidden and scaled down */
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gallery-item:hover .gallery-item-back {
+    transform: translateY(0); /* Slide up into view */
+    opacity: 10; /* Make the back image visible on hover */
+    z-index: 3; /* Ensure it appears on top of the front card */
+}
+
+.gallery-item:hover .gallery-item-front {
+    transform: translateY(100%) scale(0.0); /* Slide the front card up and away */
+    opacity: 0.5;
+}
+
+.gallery-item-front img {
+    height: 200px; /* Re-asserting this rule for specificity */
+    width: 100%;
+    object-fit: cover; /* Ensure front image is always cropped */
+}
+
+.gallery-item-back img {
+    max-width: 150%; /* Allows the back image to be larger than the card */
+    width: auto;
+    height: auto;
+    max-height: 120%;
+    object-fit: contain; /* Ensures the full image is visible without being cut */
+}
+
+.gallery-item .caption {
+    padding: 15px;
+    text-align: center;
+    font-size: 1.1em;
+    color: #b0b0b0;
+    margin: 0;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Image Grid for Team Members */
+.team-section {
+    box-shadow: none;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.team-member {
+    background: rgba(0, 0, 0, 0.4);
+    height: 320px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative; /* Needed for positioning the details panel */
+    overflow: hidden; /* Hides the details panel when it's outside the card */
+}
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+    margin-bottom: 20px;
+    transition: transform 0.4s ease-in-out;
+}
+
+.team-member h3 {
+    color: #e0e0e0;
+    font-size: 1.5em;
+    margin: 0 0 5px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.team-member p {
+    color: #b0b0b0;
+    font-size: 1em;
+    font-style: italic;
+    margin: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.team-member-details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(50px); /* Start slightly below */
+    transition: opacity 0.4s 0.2s ease-out, transform 0.4s 0.2s ease-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Align content to the bottom */
+    text-align: left; /* Align text to the left */
+}
+
+.team-member-details h4 { font-size: 1.2em; margin: 0; color: #fff; }
+.team-member-details .info { font-size: 0.9em; margin: 5px 0 15px; color: #ccc; font-style: normal; }
+.team-member-details .quote {
+    font-size: 0.9em;
+    margin: 0;
+    font-style: italic;
+    color: #ffd700;
+    border-left: 2px solid #ffd700;
+    padding-left: 10px;
+}
+
+/* --- Hover State --- */
+.team-member:hover img {
+    transform: scale(0.85) translate(-80%, -25%);
+}
+
+.team-member:hover h3,
+.team-member:hover > p {
+    opacity: 0;
+}
+
+.team-member:hover .team-member-details {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---- Side Navigation Styles ---- */
+.side-nav {
+    position: fixed; 
+    top: 50%; 
+    right: -200px; /* Start hidden off-screen */
+    transform: translateY(-50%); 
+    z-index: 100; 
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    transition: right 0.3s ease-in-out;
+}
+
+.side-nav ul {
+    list-style: none; 
+    margin: 0;
+    padding: 0;
+}
+
+.side-nav li {
+    margin: 10px 0;
+}
+
+.nav-link {
+    padding: 8px 15px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-left: 2px solid transparent; 
+    transition: all 0.3s ease;
+    /* Added for icon alignment */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-link:hover {
+    color: #ffd700; 
+}
+
+/* JavaScript toggle */
+.nav-link.active {
+    color: #ffd700;
+    border-left-color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.side-nav--visible {
+    right: 20px; 
+}
+
+.chatbot-container {
+    position: fixed;
+    bottom: 0px;
+    right: -200px; /* Start hidden off-screen */
+    z-index: 1000;
+    transition: right 0.3s ease-in-out;
+}
+
+.chatbot-container--visible {
+    right: 1px; /* Slide into view */
+}
+
+.chatbot-icon {
+    width: 175px;
+    height: 175px;
+    border-radius: 0; 
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: none;
+
+    animation: attention-pulse 2s infinite ease-in-out;
+}
+
+.chatbot-icon:hover {
+    transform: scale(1.1);
+}
+
+.chatbot-icon.no-pulse {
+    animation: none;
+}
+
+.chatbot-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Chatbot clickable question buttons */
+.chat-question-btn {
+    background-color: #333;
+    border: 1px solid #555;
+    color: #e0e0e0;
+    font-size: 10px; /* Made smaller */
+    cursor: pointer;
+    margin: 0; /* Margin is handled by grid gap */
+    padding: 4px 8px; /* Reduced padding */
+    text-align: center; /* Center text within the button */
+    border-radius: 20px; /* Pill shape */
+    transition: background-color 0.3s, border-color 0.3s;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+.chat-question-btn:hover {
+    background-color: #444;
+    border-color: #777;
+}
+
+.question-buttons-container {
+    padding: 5px 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    grid-template-rows: auto auto;    /* Two rows with automatic height */
+    gap: 5px;                          /* Space between buttons */
+    min-height: 60px; /* Reserve space to prevent layout shift */
+}
+
+.chat-window {
+    width: 350px;  /* Made wider */
+    height: 450px; /* Made taller */
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    bottom: 80px;
+    right: 120px;
+}
+
+.chat-window.open {
+    display: flex;
+}
+
+.chat-header {
+    background: #222;
+    color: #ffd700;
+    padding: 10px 15px;
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.close-btn {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-message, .bot-message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 80%;
+}
+
+.user-message {
+    background: #007bff;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background: #333;
+    color: #e0e0e0;
+    align-self: flex-start;
+}
+
+/* Typing indicator styles */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.typing-indicator span {
+    height: 8px;
+    width: 8px;
+    background-color: #999;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 2px;
+    animation: typing-bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing-bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+    } 40% {
+        transform: scale(1.0);
+    }
+}
+
+.chat-input-container {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #444;
+    background: #1a1a1a; /* Match chat window background */
+}
+
+#chat-input {
+    flex-grow: 1;
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #555;
+    background: #333;
+    color: #e0e0e0;
+    margin-right: 10px;
+}
+
+#send-btn {
+    background: #ffd700;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #1a1a1a;
+    font-weight: bold;
+}
+
+.danger-btn {
+    background-color: #a02c2c; /* A reddish color for reset/danger actions */
+    color: #fff;
+    border: 1px solid #c53d3d;
+    border-radius: 20px; 
+}
+
+.danger-btn:hover {
+    background-color: #c53d3d;
+}
+
+.success-btn {
+    background-color: #28a745; /* A green color for success actions */
+    color: #fff;
+    border: 1px solid #218838;
+    border-radius: 20px; 
+}
+
+.success-btn:hover {
+    background-color: #218838;
+}
+
+.sample-link-btn:hover {
+    background-color: #004494;
+}
+
+/* New styles for sample data links on data-processing page */
+.sample-data-panel {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sample-data-panel h4 {
+    margin-top: 0;
+    color: #ffd700;
+    font-size: 1.2em;
+}
+
+.sample-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.sample-link-btn {
+    background-color: #0056b3;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 20px; /* Increased for a pill shape */
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* Utility class to hide elements */
+.hidden {
+    display: none !important;
+}
+
+/* New styles for toggle switches in UI panels */
+.toggle-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+#show-star-toggle {
+    cursor: pointer;
+}
+
+/* --- Loading Screen --- */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 9999; /* Ensure it's on top of everything */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Stack spinner and text vertically */
+    opacity: 1;
+    transition: opacity 1s ease-out, visibility 1s ease-out;
+    visibility: visible;
+}
+
+.loading-screen--hidden {
+    opacity: 0;
+    visibility: hidden; /* Hides the element and removes it from the accessibility tree */
+}
+
+/* --- Spinner Styles --- */
+.spinner-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #ffd700;
+    border-right-color: #0474cf;
+    animation: spin 2s linear infinite;
+}
+
+.spinner-logo {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+.loading-text {
+    margin-top: 30px; /* More space below the spinner */
+    color: #b0b0b0;
+    font-style: italic; /* Keep italic */
+    letter-spacing: 1.5px; /* Slightly more spaced out text */
+}
+
+@keyframes attention-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+    
+    .logo-container--scrolled {
+        top: auto;
+        max-width: 150px;
+        left: 10px;
+        bottom: 10px; 
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Ensure the acknowledgements grid also stacks on mobile */
+    #acknowledgements .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #ui-panel {
+        position: static;
+        transform: none;
+        width: 80%;
+    }
+
+    .chatbot-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .chat-window {
+        width: 95vw;
+        height: 45vh;
+        max-width: 275px;
+        right: 5px;
+        bottom: 130px;
+    }
+
+    .section-title {
+        font-size: 1.8em;
+    }
+
+    .side-nav {
+        right: -200px; 
+        padding: 5px; /* Reduce padding */
+    }
+
+    .side-nav--visible {
+        right: 5px; /* On mobile, slide it closer to the edge */
+    }
+
+    .side-nav li {
+        margin: 5px 0; /* Reduce vertical margin */
+    }
+
+    .nav-link {
+        padding: 6px 10px; /* Reduce padding */
+        font-size: 0.7em;
+        font-weight: normal; /* Make font less bold */
+    }
+    
+    .top-nav {
+        padding: 0.5rem 1rem; /* Adjust padding */
+        width: 95%; /* Make it slightly wider */
+    }
+    .top-nav ul {
+        flex-wrap: wrap; /* Allow items to wrap */
+        justify-content: center; /* Center the items */
+        gap: 10px 5px; /* Add vertical and horizontal gap */
+    }
+
+    .top-nav li {
+        flex-basis: 30%; /* Aim for 3 items per row */
+    }
+
+    .content-row {
+        flex-direction: column; /* Stack items vertically on mobile */
+        align-items: center;
+    }
+
+    .planet-nav-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+        bottom: 20px; /* Move to the bottom */
+        transform: none; /* Remove any vertical transform */
+    }
+
+    #planet-label {
+        bottom: 115px; /* Moved up */
+        font-size: 1.8rem;
+    }
+
+    #nav-back-btn { left: 15px; }
+    #nav-next-btn { right: 15px; }
+
+    #planet-description {
+        bottom: 70px; /* Moved down slightly */
+        font-size: 0.9rem;
+        max-width: 80%;
+    }
+}
+
+.methodology-step-images {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.methodology-step-images img {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+
+.methodology-container {
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+
+.methodology-step.hidden {
+    display: none; /* hide all other steps */
+}
+
+
+
+.methodology-step-images img {
+    width: 32%; /* Keep three side by side */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    object-fit: cover;
+    cursor: pointer; /* Indicates it's interactive */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0.3s ease;
+}
+
+.methodology-step-images img:hover {
+    transform: scale(1.2); /* Zoom in */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.8); /* Bigger shadow for emphasis */
+    z-index: 10; /* Bring on top of siblings */
+}
+
+
+.image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.image-modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+}
+
+.image-modal #close-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}

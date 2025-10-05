@@ -1,0 +1,348 @@
+footer {
+    text-align: center;
+    padding: 0.25rem 0;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    width: 100%;
+}
+
+
+/* Ensure nav links on this page behave like the main page */
+.top-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.top-nav .nav-link {
+    border-left: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+/* --- End of Unified Styles --- */
+
+.section-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #e0e0e0;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.interactive-section {
+    position: relative;
+    width: 100%;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    box-sizing: border-box;
+    box-shadow: none;
+}
+
+#planet-container {
+    width: 95vw;
+    height: 75vh;
+    max-width: 1600px;
+    max-height: 700px;
+    position: relative;
+}
+
+/* --- Loading Indicator Styles --- */
+#loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px 30px;
+    border-radius: 10px;
+    z-index: 10; /* Ensure it's on top of the Three.js canvas */
+    backdrop-filter: blur(5px);
+}
+
+/* New wrapper for all controls */
+#controls-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+/* UI panel styles */
+#ui-panel {
+    background-color: rgba(30, 30, 50, 0.7);
+    border-radius: 12px;
+    padding: 15px 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: row; /* Arrange sliders horizontally */
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#planet-name-input {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #555;
+    color: #fff;
+    border-radius: 5px;
+    padding: 8px;
+    text-align: center;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items within each slider container */
+    gap: 5px;
+}
+
+.slider-container label {
+    font-size: 0.85em;
+    font-weight: bold;
+    text-align: justify;
+}
+
+/* Style for the new number input fields */
+input[type="number"] {
+    width: 60px; /* Give it a fixed width */
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #555;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 0.9em;
+}
+
+/* Style for disabled sliders and inputs */
+input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+    cursor: not-allowed;
+}
+
+/* Custom slider thumb and track styles */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #8e8eef;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #8e8eef;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+    background: #c3c3ff;
+}
+
+input[type="range"]:hover::-moz-range-thumb {
+    background: #c3c3ff;
+}
+
+#randomize-btn, #store-planet-btn, #new-planet-btn {
+    background: #ffd700;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #1a1a1a;
+    font-weight: bold;
+}
+
+/* Comparison Panel Styles */
+#comparison-panel {
+    background-color: rgba(30, 30, 50, 0.7);
+    border-radius: 12px;
+    padding: 15px 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+#comparison-panel p {
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.comparison-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.compare-btn {
+    background: #5a5a7a;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.compare-btn:hover {
+    background: #7a7a9a;
+}
+
+.compare-btn:disabled {
+    background: #404050; /* A darker, more muted color */
+    color: #888;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Camera Controls Panel Styles */
+#camera-controls-panel {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+/* New wrapper for all top-left controls */
+#top-left-controls {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+#time-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+#time-controls button {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1em;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+#time-controls button:hover {
+    color: #ffd700;
+}
+
+#speed-display {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 0.9em;
+    min-width: 25px; /* Reserve space */
+    text-align: center;
+}
+
+#day-counter-display {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.camera-buttons {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
+    justify-content: center;
+}
+
+.camera-buttons button {
+    background: rgba(90, 90, 122, 0.7); /* Use a semi-transparent background */
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px; /* Change from circle to square with rounded corners */
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.2em;
+    transition: background 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.camera-buttons button.active {
+    background: #8e8eef; /* A bright color to show it's active */
+    box-shadow: 0 0 10px #8e8eef;
+}
+
+/* --- Responsive Styles for Mobile --- */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.8em; /* Reduce title size */
+        margin-bottom: 15px;
+    }
+
+    #planet-container {
+        height: 55vh; /* Reduce height to give more room for controls */
+    }
+
+    #controls-wrapper {
+        flex-direction: column; /* Stack the two control panels vertically */
+    }
+
+    #ui-panel {
+        flex-direction: column; /* Stack sliders vertically */
+        padding: 20px;
+    }
+
+    .slider-container {
+        width: 100%; /* Allow sliders to take more width */
+    }
+}

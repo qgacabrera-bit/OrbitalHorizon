@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>AI Workbench - Orbital Horizon</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dataprocess.css">
+    <link rel="stylesheet" href="planet-info.css"> <!-- Styles for tooltips -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="loading-screen">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <img src="https://i.imgur.com/YZwEU6F.png" alt="Logo" class="spinner-logo">
+        </div>
+        <p class="loading-text">Entering the cosmos...</p>
+    </div>
+
+    <div class="video-background-container">
+        <video src="https://github.com/qgacabrera-bit/OrbitalHorizon/blob/main/assets/1%20(1).mp4" autoplay loop muted playsinline></video>
+    </div>
+    <a href="index.html" class="logo-container">
+        <img src="https://i.imgur.com/YZwEU6F.png" alt="Orbital Horizon Logo" class="logo">
+    </a>
+
+    <nav class="top-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="data-processing.html" class="nav-link active"><i class="fas fa-flask"></i> AI Workbench</a></li>
+            <li><a href="planet.html" class="nav-link"><i class="fas fa-meteor"></i> Interactive Simulator</a></li>
+            <li><a href="team.html" class="nav-link"><i class="fas fa-users"></i> The Team</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-main">
+        <section id="data-processing" class="processing-section">
+            <h2 class="section-title">AI Workbench</h2>
+            <p class="section-intro">
+                Welcome to the AI Workbench. Upload a dataset of potential exoplanet candidates, or use one of our samples below. Here you can preprocess data, train a new model, or use pre-trained models to discover new planets from NASA's vast collection of data.
+            </p>
+
+            <!-- === SAMPLE DATASETS === -->
+            <div class="sample-data-panel">
+                <h4>Don't have a dataset? Try one of ours.</h4>
+                <p>Run a sample dataset to see the AI Workbench in action, or download the CSV to use it yourself.</p>
+                <p>Curious about the steps involved? See our <a href="about.html#methodology" class="sim-link">methodology</a> to understand how we process the data from start to finish.</p>
+                <div class="sample-links">
+                    <div class="sample-item">
+                        <span class="sample-name">Kepler Dataset</span>
+                        <div class="sample-actions">
+                            <button id="runKeplerSample" class="sample-link-btn"><i class="fas fa-play-circle"></i> Run</button>
+                            <a href="https://orbital-horizon-backend.onrender.com/download_sample/kepler" class="sample-link-btn"><i class="fas fa-download"></i> Download</a>
+                        </div>
+                    </div>
+                    <div class="sample-item">
+                        <span class="sample-name">K2 Dataset</span>
+                        <div class="sample-actions">
+                            <button id="runK2Sample" class="sample-link-btn"><i class="fas fa-play-circle"></i> Run</button>
+                            <a href="https://orbital-horizon-backend.onrender.com/download_sample/k2" class="sample-link-btn"><i class="fas fa-download"></i> Download</a>
+                        </div>
+                    </div>
+                    <div class="sample-item">
+                        <span class="sample-name">TESS Dataset</span>
+                        <div class="sample-actions">
+                            <button id="runTessSample" class="sample-link-btn"><i class="fas fa-play-circle"></i> Run</button>
+                            <a href="https://orbital-horizon-backend.onrender.com/download_sample/tess" class="sample-link-btn"><i class="fas fa-download"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === SINGLE PREDICTION PANEL === -->
+            <div id="single-prediction-panel" class="control-panel column collapsible-panel">
+                <div class="results-header" id="single-prediction-header">
+                    <h4>Single Object Prediction</h4>
+                    <button class="toggle-results-btn" title="Toggle Panel"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div id="single-prediction-body" class="collapsed">
+                    <p>Enter the parameters of a celestial object to get an instant prediction from our pre-trained model.</p>
+                    <div id="single-prediction-form" class="hyperparam-group">
+                        <label>Planet Radius (Earth Radii): <input type="number" id="sp-radius" placeholder="1.0"></label>
+                        <label>Eq. Temperature (K): <input type="number" id="sp-temp" placeholder="288"></label>
+                        <label>Insolation (Earth Flux): <input type="number" id="sp-insol" placeholder="1.0"></label>
+                        <label>Orbital Period (days): <input type="number" id="sp-period" placeholder="365"></label>
+                        <label>Stellar Temperature (K): <input type="number"id="sp-stellar-temp" placeholder="5778"></label>
+                        <label>Stellar Radius (Solar Radii): <input type="number" id="sp-stellar-radius" placeholder="1.0"></label>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="singlePredictBtn">Predict Object</button>
+                    </div>
+                </div>
+                <div id="single-prediction-result" style="display: none;"></div>
+            </div>
+
+            <!-- === CONTROL PANELS === -->
+            <div id="uploadSection" class="control-panel">
+              <label for="fileInput" class="file-upload-label">
+                <i class="fas fa-file-csv"></i> Choose CSV File
+              </label>
+              <input type="file" id="fileInput" accept=".csv" style="display: none;">
+              <span id="fileName">No file chosen</span>
+              <button id="uploadBtn" disabled>Upload & Process</button>
+            </div>
+
+            <div id="trainControlsSection" class="control-panel" style="display:none;">
+              <div class="train-controls">
+                <label for="modelSelect">Select Model:</label>
+                <select id="modelSelect">
+                  <option value="xgb">XGBClassifier</option>
+                  <option value="lgbm">LGBMClassifier</option>
+                </select>
+              </div>
+              <div id="xgbParams" class="hyperparam-group" style="display:none;">
+                <label>N Estimators:
+                  <span class="info-icon" data-tooltip="The number of boosting rounds or trees to build. Higher values can improve accuracy but increase training time."><i class="fas fa-info-circle"></i></span>
+                  <input type="number" id="nEstimators" placeholder="100">
+                </label>
+                <label>Max Depth:
+                  <span class="info-icon" data-tooltip="The maximum depth of each tree. Deeper trees capture more complex patterns but risk overfitting."><i class="fas fa-info-circle"></i></span>
+                  <input type="number" id="maxDepth" placeholder="3">
+                </label>
+                <label>Learning Rate:
+                  <span class="info-icon" data-tooltip="Step size for each boosting round. A lower value makes the model more robust but requires more estimators."><i class="fas fa-info-circle"></i></span>
+                  <input type="number" step="0.01" id="learningRate" placeholder="0.1">
+                </label>
+              </div>
+              <div class="upload-model-group">
+                <label for="modelFileInput" class="file-upload-label small">
+                  <i class="fas fa-upload"></i> Upload Custom Model
+                </label>
+                <input type="file" id="modelFileInput" accept=".pkl" style="display: none;">
+                <span id="modelFileName">No model chosen</span>
+                <button id="predictWithCustomBtn" disabled>Predict with Uploaded Model</button>
+              </div>
+              <div class="action-buttons">
+                <button id="predictBtn">Predict with Pre-trained Model</button>
+                <button id="trainBtn">Train Model</button>
+                <button id="downloadModelBtn" class="success-btn" style="display:none;">Download Trained Model</button>
+                <button id="downloadPredictionsBtn" style="display:none;">Download Predictions (CSV)</button>
+                <button id="resetBtn" class="danger-btn">Reset Workbench</button>
+              </div>
+            </div>
+
+            <!-- === RESULTS AREA === -->
+            <div id="results-container" style="display: none;">
+                <div id="processing-overlay" style="display: none;">
+                    <div class="spinner-container"></div>
+                    <p id="processing-overlay-text" class="loading-text">Processing...</p>
+                </div>
+
+                <div id="preprocessing-container">
+                    <div class="results-header" id="preprocessing-header">
+                        <h3>Preprocessing Details</h3>
+                        <button id="toggle-preprocessing-btn" class="toggle-results-btn" title="Toggle Details"><i class="fas fa-chevron-up"></i></button>
+                    </div>
+                    <div id="preprocessing-results"></div>
+                </div>
+                <div id="training-results" class="results-section"></div>
+            </div>
+
+        </section>
+    </main>
+
+    <div class="chatbot-container">
+        <div class="chatbot-icon" onclick="toggleChat()">
+            <img src="https://i.imgur.com/9S44Fwz.png" alt="Chatbot Icon">
+        </div>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header" id="chat-header">
+                <h3>Astra</h3>
+                <span class="close-btn" onclick="toggleChat()">&times;</span>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="bot-message">Hello! I'm Astra, I'm here to answer your questions about Orbital Horizon. What would you like to know?</div>
+            </div>
+            <div class="question-buttons-container" id="question-buttons-container"></div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Ask a question..." onkeypress="handleKeyPress(event)">
+                <button id="send-btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Technological Institute of the Philippines</p>
+    </footer>
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+    <script src="datascript.js"></script>
+</body>
+</html>

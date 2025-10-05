@@ -1,0 +1,11 @@
+flask
+flask_cors
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+xgboost
+lightgbm
+gunicorn
+requests

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Planet Simulator - Orbital Horizon</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="planet.css">
+    <link rel="stylesheet" href="planet-info.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <div class="loading-screen">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <img src="https://i.imgur.com/YZwEU6F.png" alt="Logo" class="spinner-logo">
+        </div>
+        <p class="loading-text">Entering the cosmos...</p>
+    </div>
+
+    <div class="video-background-container">
+        <video src="https://github.com/qgacabrera-bit/OrbitalHorizon/blob/main/assets/1%20(1).mp4" autoplay loop muted playsinline></video>
+    </div>
+    <a class="logo-container">
+        <img src="https://i.imgur.com/YZwEU6F.png" alt="Orbital Horizon Logo" class="logo">
+    </a>
+    <nav class="top-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="data-processing.html" class="nav-link"><i class="fas fa-flask"></i> AI Workbench</a></li>
+            <li><a href="planet.html" class="nav-link active"><i class="fas fa-meteor"></i> Interactive Simulator</a></li>
+            <li><a href="team.html" class="nav-link"><i class="fas fa-users"></i> The Team</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-main">
+        <section id="Simulator" class="interactive-section">
+            <!-- Info panel for predicted planet data -->
+            <div id="planet-info-panel" class="planet-info-panel">
+                <h3 id="planet-name-header">
+                    Predicted Planet Data
+                    <span id="toggle-info-panel" class="panel-toggle-btn" title="Toggle Panel"><i class="fas fa-chevron-left"></i></span>
+                </h3>
+                <div class="info-grid">
+                    <i class="fas fa-globe"></i> <span class="label">Radius:</span> <span id="info-radius">N/A</span>
+                    <i class="fas fa-thermometer-half"></i> <span class="label">Eq. Temp:</span> <span id="info-temp">N/A</span>
+                    <i class="fas fa-sun"></i> <span class="label">Insolation:</span> <span id="info-insol">N/A</span>
+                    <i class="fas fa-star"></i> <span class="label">Stellar Temp:</span> <span id="info-stellar-temp">N/A</span>
+                    <i class="fas fa-ruler-combined"></i> <span class="label">Stellar Radius:</span> <span id="info-stellar-radius">N/A</span>
+                    <i class="fas fa-sync-alt"></i> <span class="label">Orbital Period:</span> <span id="info-period">N/A</span>
+                </div>
+            </div>
+
+            <h2 class="section-title">Interactive 3D Planet Simulation</h2>
+            <div id="planet-container">
+                <div id="top-left-controls">
+                    <div id="time-controls">
+                        <button id="slow-down-btn" title="Slow Down"><i class="fas fa-backward"></i></button>
+                        <button id="pause-play-btn" title="Pause/Play"><i class="fas fa-pause"></i></button>
+                        <button id="fast-forward-btn" title="Fast Forward"><i class="fas fa-forward"></i></button>
+                        <span id="speed-display">x1</span>
+                    </div>
+                    <div id="day-counter-display">Days Passed: 0</div>
+                </div>
+                <div id="camera-controls-panel">
+                    <div class="camera-buttons">
+                        <button id="zoom-in-btn" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                        <button id="zoom-out-btn" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                        <button id="top-down-btn" title="Toggle Top-Down View"><i class="fas fa-crosshairs"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div id="controls-wrapper">
+                <div id="ui-panel">
+                    <div class="name-container">
+                        <label for="planet-name-input">Planet Name
+                            <span class="info-icon" data-tooltip="The designated name for your custom or discovered planet."><i class="fas fa-info-circle"></i></span>
+                        </label>
+                        <input type="text" id="planet-name-input" value="My Custom Planet">
+                    </div>
+                    <div class="slider-container">
+                        <label for="radius-input">Radius (Earth Radii)
+                            <span class="info-icon" data-tooltip="The planet's size relative to Earth. A value of 1 means it's the same size as Earth."><i class="fas fa-info-circle"></i></span>
+                        </label>
+                        <input type="range" id="radius-slider" min="0.1" max="250" value="1" step="0.1">
+                        <input type="number" id="radius-input" min="0.1" max="250" value="1" step="0.1">
+                    </div>
+                    <div class="slider-container">
+                        <label for="temp-input">Surface Temp (°C)
+                            <span class="info-icon" data-tooltip="The average temperature on the planet's surface. This affects the planet's color tint and atmospheric glow."><i class="fas fa-info-circle"></i></span>
+                        </label>
+                        <input type="range" id="temp-slider" min="-200" max="1000" value="0" step="0.1">
+                        <input type="number" id="temp-input" min="-200" max="1000" value="0" step="0.1">
+                    </div>
+                    <div class="slider-container">
+                        <label for="insolation-input">Insolation (Earth Flux)
+                            <span class="info-icon" data-tooltip="The amount of radiation the planet receives from its star, relative to Earth. Higher values result in brighter illumination."><i class="fas fa-info-circle"></i></span>
+                        </label>
+                        <input type="range" id="insolation-slider" min="0" max="1000" value="50" step="1">
+                        <input type="number" id="insolation-input" min="0" max="1000" value="50" step="1">
+                    </div>
+                    <div class="slider-container">
+                        <label for="stellar-radius-input">Stellar Radius
+                            <span class="info-icon" data-tooltip="The size of the host star. Larger stars are brighter and will push the planet's orbit further out."><i class="fas fa-info-circle"></i></span>
+                        </label>
+                        <input type="range" id="stellar-radius-slider" min="10" max="10000" value="30" step="1">
+                        <input type="number" id="stellar-radius-input" min="10" max="10000" value="30" step="1">
+                    </div>
+                    <div class="slider-container">
+                        <label for="stellar-temp-input">Stellar Temp (K)
+                            <span class="info-icon" data-tooltip="The surface temperature of the host star in Kelvin. This affects the star's color, from red for cooler stars to blue for hotter ones."><i class="fas fa-info-circle"></i></span>
+                        </label>
+                        <input type="range" id="stellar-temp-slider" min="2000" max="30000" value="5800" step="10">
+                        <input type="number" id="stellar-temp-input" min="2000" max="30000" value="5800" step="10">
+                    </div>
+                    <div class="slider-container">
+                        <label for="period-input">Orbital Period (days)
+                            <span class="info-icon" data-tooltip="The number of Earth days it takes for the planet to complete one full orbit around its star."><i class="fas fa-info-circle"></i></span>
+                        </label>
+                        <input type="range" id="period-slider" min="10" max="2000" value="365" step="1">
+                        <input type="number" id="period-input" min="10" max="2000" value="365" step="1">
+                    </div>
+                    <div class="toggle-container">
+                        <label for="show-star-toggle">Show Star System
+                            <span class="info-icon" data-tooltip="Toggle between a solo view of the planet and a full star system view where the planet orbits its host star."><i class="fas fa-info-circle"></i></span>
+                        </label>
+                        <input type="checkbox" id="show-star-toggle">
+                    </div>
+                    <button id="new-planet-btn">New Planet</button>
+                    <button id="randomize-btn">Randomize Planet Surface</button>
+                    <button id="store-planet-btn">Save Planet</button>
+                </div>
+                <div id="comparison-panel">
+                    <p>Compare with:</p>
+                    <div class="comparison-buttons">
+                        <button class="compare-btn" data-body="earth">Earth</button>
+                        <button class="compare-btn" data-body="mars">Mars</button>
+                        <button class="compare-btn" data-body="moon">Moon</button>
+                        <button class="compare-btn" data-body="jupiter">Jupiter</button>
+                        <button class="compare-btn" data-body="sun">Sun</button>
+                        <button class="compare-btn" data-body="none" id="clear-comparison-btn"><span>Clear</span></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Technological Institute of the Philippines</p>
+    </footer>
+
+    <script src="planet.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

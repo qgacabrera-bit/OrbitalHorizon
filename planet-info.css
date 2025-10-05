@@ -1,0 +1,111 @@
+/* --- Planet Info Panel Styles --- */
+.planet-info-panel {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-left: 3px solid #ffd700;
+    border-radius: 0 8px 8px 0;
+    padding: 20px;
+    color: #e0e0e0;
+    width: 280px;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.planet-info-panel.visible {
+    opacity: 1;
+}
+
+.planet-info-panel h3 {
+    margin-top: 0;
+    color: #ffd700;
+    font-size: 1.5em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.panel-toggle-btn {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #ccc;
+    transition: color 0.3s, transform 0.5s ease-in-out;
+}
+
+.panel-toggle-btn:hover {
+    color: #ffd700;
+}
+
+.planet-info-panel.collapsed {
+    /* Move the panel completely off-screen to the left */
+    transform: translate(-110%, -50%);
+}
+
+.planet-info-panel.collapsed .panel-toggle-btn {
+    /* When collapsed, move the button to the edge of the viewport */
+    transform: rotate(180deg);
+    right: auto; /* Unset the 'right' property */
+    left: calc(100% + 15px); /* Position it outside the panel's new boundary */
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: auto auto 1fr; /* Create three columns: icon, label, value */
+    gap: 12px;
+    row-gap: 15px; /* Add a bit more vertical space between rows */
+    align-items: center;
+}
+
+.info-grid .fas {
+    color: #ccc;
+    width: 20px;
+    text-align: center;
+}
+
+.info-grid span {
+    font-weight: bold;
+    color: #fff;
+}
+
+.info-grid .label {
+    color: #aaa;
+    font-weight: normal;
+}
+
+@media (max-width: 768px) {
+    .planet-info-panel {
+        top: 150px;
+        bottom: auto;
+        left: 30%;
+        transform: translateX(-50%);
+        width: 50%;
+    }
+
+    .planet-info-panel h3 {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+
+    .info-grid span, .info-grid .label, .info-grid .fas {
+        font-size: 0.8em;
+    }
+
+    .planet-info-panel.collapsed {
+        /* On mobile, slide it off to the left, similar to desktop */
+        transform: translateX(-154%);
+    }
+
+    .planet-info-panel.collapsed .panel-toggle-btn {
+        /* Reposition the button to the right edge of the screen */
+        transform: rotate(180deg);
+        opacity: 1;
+    }
+}

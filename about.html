@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbital Horizon</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <img src="https://i.imgur.com/YZwEU6F.png" alt="Logo" class="spinner-logo">
+        </div>
+        <p class="loading-text">Entering the cosmos...</p>
+    </div>
+
+    <div class="video-background-container">
+        <video src="https://github.com/gabcabrera69-cpu/HackathonWeb/raw/refs/heads/main/assets/1%20(1).mp4" autoplay loop muted playsinline></video>
+    </div>
+    <a href="index.html" class="logo-container">
+        <img src="https://i.imgur.com/YZwEU6F.png" alt="Orbital Horizon Logo" class="logo">
+    </a>
+    <nav class="top-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about.html" class="nav-link active"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="data-processing.html" class="nav-link"><i class="fas fa-flask"></i> AI Workbench</a></li>
+            <li><a href="planet.html" class="nav-link"><i class="fas fa-meteor"></i> Interactive Simulator</a></li>
+            <li><a href="team.html" class="nav-link"><i class="fas fa-users"></i> The Team</a></li>
+        </ul>
+    </nav>
+
+    <nav class="side-nav">
+        <ul>
+            <li><a href="#about" class="nav-link active"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="#demo" class="nav-link"><i class="fas fa-images"></i> Project Demo</a></li>
+            <li><a href="#methodology" class="nav-link"><i class="fas fa-cogs"></i> Methodology</a></li>
+        </ul>
+    </nav>
+    
+    <main class="content-main">
+    <section id="about" class="fade-in-section">
+        <div class="section-video-background">
+            <video src="https://github.com/gabcabrera69-cpu/HackathonWeb/raw/refs/heads/main/assets/3194277-hd_1920_1080_30fps.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="section-content">
+            <h1>Orbital Horizon</h1>
+            <p class="center-text">The Limit to Vision.<br><br></p>
+        
+            <p class="justified-text">
+                Orbital Horizon is a project that uses machine learning to identify exoplanets from large NASA datasets. 
+                Our goal is to make this data more accessible and help uncover new planets hidden within the data from missions like Kepler and TESS. 
+                To take part in discovering these worlds with us, you can try the simulator <a href="planet.html" style="color: #0474cf;">here</a>.
+            </p>
+            
+            <h2 class="section-title">About</h2>
+            <p class="justified-text">Exoplanetary identification is becoming an increasingly popular area of astronomical exploration.
+            Several survey missions have been launched with the primary objective of identifying exoplanets.
+             Kepler is one of the more well-known transit-method satellites, and provided data for nearly a decade. 
+             Kepler was followed by its successor mission, K2, which utilized the same hardware and transit method, but maintained a different path for surveying. 
+             During both of these missions, much of the work to identify exoplanets was done manually by astrophysicists at NASA and research institutions that sponsored the missions. 
+             After the retirement of Kepler, the Transiting Exoplanet Survey Satellite (TESS), which has a similar mission of exoplanetary surveying, launched and has been collecting data since 2018.
+             <br><br>
+            For each of these missions (Kepler, K2, and TESS), publicly available datasets exist that include data for all confirmed exoplanets, planetary candidates, and false positives obtained by the mission (see Resources tab). 
+            For each data point, these spreadsheets also include variables such as the orbital period, transit duration, planetary radius, and much more. 
+            As this data has become public, many individuals have researched methods to automatically identify exoplanets using machine learning. 
+            But despite the availability of new technology and previous research in automated classification of exoplanetary data, much of this exoplanetary transit data is still analyzed manually. 
+            Promising research studies have shown great results can be achieved when data is automatically analyzed to identify exoplanets. 
+            Much of the research has proven that preprocessing of data, as well as the choice of model, can result in high-accuracy identification. 
+            Utilizing the Kepler, K2, TESS, and other NASA-created, open-source datasets can help lead to discoveries of new exoplanets hiding in the data these satellites have provided.
+            </p>
+        </div>
+    </section>
+
+    <section id="demo" class="gallery-section fade-in-section">
+        <div class="section-video-background">
+            <video src="https://github.com/gabcabrera69-cpu/HackathonWeb/raw/refs/heads/main/assets/3%20(1).mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="section-content">
+            <h2 class="section-title">Project Demo</h2>
+            
+            <div class="video-container">
+                <iframe width="1312" height="738" src="https://www.youtube.com/embed/Wgbjt81N7xo" title="&quot;You'll Be In My Heart Forever&quot;  | T.I.P. Hymn Video (2023 Version)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <div class="gallery-item-front">
+                            <img src="https://blz-contentstack-images.akamaized.net/v3/assets/blt0e00eb71333df64e/blt792ae823e2d6d0df/6580e3079ac620722d04b35a/media_gallery_6.webp" alt="A screenshot of a habitat layout being designed.">
+                            <p class="caption">Customizing Planets</p>
+                        </div>
+                        <div class="gallery-item-back">
+                            <img src="https://i.imgur.com/8CzxuDs.png" alt="3D Planet View">
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <div class="gallery-item-front">
+                            <img src="https://science.nasa.gov/wp-content/uploads/2017/11/pia17944.jpg" alt="A screenshot of a Martian environment simulation.">
+                            <p class="caption">Simulating a Mars environment</p>
+                        </div>
+                        <div class="gallery-item-back">
+                            <img src="https://i.imgur.com/VIj45Z7.png" alt="3D Planet View">
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <div class="gallery-item-front">
+                            <img src="https://farm8.staticflickr.com/7571/16146937806_586c1ec78f_z.jpg" alt="A screenshot of the user interface dashboard.">
+                            <p class="caption">User-friendly UI dashboard</p>
+                        </div>
+                        <div class="gallery-item-back">
+                            <img src="https://i.imgur.com/2z91jSu.png" alt="3D Planet View">
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <div class="gallery-item-front">
+                            <img src="https://cdn.dribbble.com/userupload/11297073/file/original-16b4a2bff931fbc5a97291d6c7dd983d.png?resize=752x&vertical=center" alt="Another screenshot of the project in action.">
+                            <p class="caption">Full project showcase</p>
+                        </div>
+                        <div class="gallery-item-back">
+                            <img src="https://i.imgur.com/3XASbLi.png" alt="3D Planet View">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methodology" class="fade-in-section">
+        <div class="section-video-background">
+            <video src="https://github.com/gabcabrera69-cpu/HackathonWeb/raw/refs/heads/main/assets/4%20(1).mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="section-content">
+            <h2 class="section-title">Methodology</h2>
+            <div class="methodology-navigator">
+                <div class="methodology-steps-container" id="methodology-steps">
+                    <!-- Step 1 -->
+                    <div class="methodology-step active">
+                        <h3>1. Data Acquisition</h3>
+                        <p class="justified-text">
+                            We begin by sourcing curated datasets from NASA's public archives, specifically from missions like Kepler, K2, and TESS. These datasets contain thousands of light curves, which are measurements of star brightness over time.
+                        </p>
+
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="methodology-step">
+                        <h3>2. Initial Preprocessing</h3>
+                        <p class="justified-text">The raw light curve data is often noisy. Our first preprocessing phase involves cleaning the data by removing outliers, normalizing the flux values, and handling any missing data points to ensure a consistent baseline for analysis.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="methodology-step">
+                        <h3>3. Feature Engineering</h3>
+                        <p class="justified-text">From the cleaned light curves, we extract key features that are indicative of a planetary transit. This includes metrics like transit depth, duration, orbital period, and the shape of the transit signal.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="methodology-step">
+                        <h3>4. Dimensionality Reduction</h3>
+                        <p class="justified-text">To improve model performance and reduce computational cost, we apply dimensionality reduction techniques. This helps in identifying the most impactful features and reducing noise from less important ones.</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="methodology-step">
+                        <h3>5. Model Selection</h3>
+                        <p class="justified-text">We evaluate several machine learning models suitable for classification tasks, such as XGBoost and LightGBM. The choice is based on their proven effectiveness in handling tabular data and their ability to capture complex patterns.</p>
+
+                        <div class="methodology-step-images">
+                            <img src="K2_feature_importances.png" alt="K2 Mission Data" />
+                            <img src="KOI_feature_importances.png" alt="Kepler Objects of Interest Data" />
+                            <img src="TESS_feature_importances.png" alt="TESS Mission Data" />
+                        </div>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="methodology-step">
+                        <h3>6. Training & Validation</h3>
+                        <p class="justified-text">The selected model is trained on a labeled dataset containing confirmed exoplanets, planetary candidates, and known false positives. We use cross-validation to ensure the model generalizes well to new, unseen data.</p>
+                    </div>
+                    <!-- Step 7 -->
+                    <div class="methodology-step">
+                        <h3>7. Hyperparameter Tuning</h3>
+                        <p class="justified-text">To maximize accuracy, we perform hyperparameter tuning. This process systematically searches for the optimal model settings, such as learning rate and tree depth, to achieve the best predictive performance.</p>
+                    </div>
+                    <!-- Step 8 -->
+                    <div class="methodology-step">
+                        <h3>8. Prediction on New Data</h3>
+                        <p class="justified-text">Once trained and tuned, the model is used to make predictions on new, unclassified light curves from the datasets. It assigns a probability score indicating the likelihood that a signal is a true exoplanet.</p>
+                    </div>
+                    <!-- Step 9 -->
+                    <div class="methodology-step">
+                        <h3>9. Candidate Verification</h3>
+                        <p class="justified-text">The model's high-confidence predictions are flagged as new planetary candidates. While our model provides strong evidence, these candidates would typically undergo further review by astronomers for official confirmation.</p>
+                    </div>
+                    <!-- Step 10 -->
+                    <div class="methodology-step">
+                        <h3>10. Visualization & Reporting</h3>
+                        <p class="justified-text">The results, including the newly identified candidates, are made available through our interactive tools. The AI Workbench allows users to run this process, and the Simulator helps visualize the potential characteristics of these new worlds.</p>
+                    </div>
+                </div>
+                <div class="methodology-nav-controls">
+                    <button id="methodology-prev-btn" class="methodology-nav-btn" title="Previous Step" disabled><i class="fas fa-chevron-left"></i></button>
+                    <div id="methodology-nav-dots"></div>
+                    <button id="methodology-next-btn" class="methodology-nav-btn" title="Next Step"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+
+<div class="chatbot-container">
+    <div class="chatbot-icon" onclick="toggleChat()">
+        <img src="https://i.imgur.com/9S44Fwz.png" alt="Chatbot Icon">
+    </div>
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header" id="chat-header">
+            <h3>Astra</h3>
+            <span class="close-btn" onclick="toggleChat()">&times;</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="bot-message">Hello! I'm Astra, I'm here to answer your questions about Orbital Horizon. What would you like to know?</div>
+        </div>
+        <div class="question-buttons-container" id="question-buttons-container"></div>
+        <div class="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Ask a question..." onkeypress="handleKeyPress(event)">
+            <button id="send-btn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
+
+    <footer>
+        <p>&copy; 2025 Technological Institute of the Philippines</p>
+    </footer>
+    <div id="image-modal" class="image-modal hidden">
+        <span id="close-modal">&times;</span>
+        <img id="modal-img" src="" alt="Zoomed image">
+    </div>
+
+
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+
+</body>
+
+</html>

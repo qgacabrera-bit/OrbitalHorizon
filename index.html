@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbital Horizon</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <img src="https://i.imgur.com/YZwEU6F.png" alt="Logo" class="spinner-logo">
+        </div>
+        <p class="loading-text">Entering the cosmos...</p>
+    </div>
+
+    <div class="video-background-container">
+        <video src="https://github.com/qgacabrera-bit/OrbitalHorizon/blob/main/assets/1%20(1).mp4" autoplay loop muted playsinline></video>
+    </div>
+    <nav class="top-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="data-processing.html" class="nav-link"><i class="fas fa-flask"></i> AI Workbench</a></li>
+            <li><a href="planet.html" class="nav-link"><i class="fas fa-meteor"></i> Interactive Simulator</a></li>
+            <li><a href="team.html" class="nav-link"><i class="fas fa-users"></i> The Team</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero-section">
+        <a href="index.html" class="logo-container">
+            <img src="https://i.imgur.com/YZwEU6F.png" alt="Orbital Horizon Logo" class="logo">
+        </a>
+         <a href="about.html" class="scroll-down-indicator"><div class="scroll-down-line-mask"><span></span></div></a>
+    </section>
+
+
+    <main class="content-main">
+        <!-- Container for 3D planet navigation -->
+        <div id="planet-nav-container">
+            <!-- Three.js canvas will be injected here -->
+        </div>
+            <!-- Planet Navigation Controls -->
+    <button id="nav-back-btn" class="planet-nav-btn"><i class="fas fa-chevron-left"></i></button>
+    <button id="nav-next-btn" class="planet-nav-btn"><i class="fas fa-chevron-right"></i></button>
+    <!-- Label for the focused planet -->
+        <br><br><br><br><br>
+            <h2 id="planet-label"></h2>
+    <!-- Description for the focused planet -->
+            <p id="planet-description"></p>
+
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Technological Institute of the Philippines. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="nav-planets.js"></script>
+
+
+</body>
+</html>

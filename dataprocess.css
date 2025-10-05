@@ -1,0 +1,438 @@
+ /* --- Data Processing Page Specific Styles --- */
+
+.processing-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(0,0,0,0.7);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.control-panel {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative; /* Needed for overlay positioning */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: center; 
+}
+
+.control-panel.column {
+    flex-direction: column;
+}
+
+#uploadSection button, #trainBtn, #predictBtn, #downloadPredictionsBtn, #singlePredictBtn {
+    background: rgba(255, 215, 0, 0.7); /* Gold with transparency */
+    border: 1px solid rgba(255, 215, 0, 0.9);
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #1a1a1a;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+/* Style for the new custom file upload button */
+.file-upload-label {
+    background: rgba(255, 215, 0, 0.7);
+    border: 1px solid rgba(255, 215, 0, 0.9);
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #1a1a1a;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-upload-label:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #fff;
+    color: #000;
+}
+
+/* --- New: Adjustments for collapsible panels --- */
+.collapsible-panel {
+    padding: 0; /* Remove padding from the main container */
+    align-items: stretch; /* Allow children to stretch */
+}
+
+/* --- Collapsible Control Panel --- */
+.collapsible-panel .results-header {
+    width: 100%;
+}
+
+#single-prediction-body.collapsed {
+    display: none;
+}
+
+/* --- Single Prediction Panel --- */
+#single-prediction-panel {
+    text-align: center;
+}
+
+#single-prediction-form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 100%;
+    border: none;
+    padding: 0;
+}
+
+
+
+/* Style for the filename display */
+#fileName {
+    color: #ccc;
+    font-style: italic;
+}
+
+#uploadSection button:hover, #trainBtn:hover, #predictBtn:hover, #downloadPredictionsBtn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #fff;
+    color: #000;
+}
+
+.action-buttons button:disabled,
+#uploadBtn:disabled {
+    background: rgba(128, 128, 128, 0.5);
+    border-color: rgba(128, 128, 128, 0.7);
+    cursor: not-allowed;
+    color: #aaa;
+}
+
+.train-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}
+
+
+#single-prediction-body .action-buttons {
+    margin-top: 20px;
+}
+
+.hyperparam-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    border-left: 2px solid rgba(255, 255, 255, 0.3);
+    padding-left: 20px;
+}
+
+.hyperparam-group label, .train-controls label {
+    font-weight: bold;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically center items */
+    gap: 5px; /* Add a small gap */
+}
+
+.hyperparam-group .info-icon {
+    margin-left: 0; /* Reset margin from planet-info.css */
+}
+
+.hyperparam-group input, .train-controls select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background: #333;
+    color: #e0e0e0;
+}
+
+.upload-model-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 15px;
+}
+
+.upload-model-group #modelFileName {
+    color: #ccc;
+    font-style: italic;
+    flex-shrink: 1;
+    min-width: 100px;
+}
+
+
+.file-upload-label.small {
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+/* --- Results Area --- */
+#results-container {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    position: relative; /* Needed for overlay positioning */
+    border-radius: 8px;
+}
+
+/* --- New Processing Overlay --- */
+#processing-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+}
+
+#processing-overlay .spinner-container {
+    width: 150px;
+    height: 150px;
+}
+
+
+.step {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 4px solid #ffd700;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.step table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.step th, .step td {
+    border: 1px solid #555;
+    padding: 8px;
+    text-align: left;
+}
+
+.step th {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.step pre {
+    background: #111;
+    padding: 10px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+/* --- Collapsible Results Section --- */
+#preprocessing-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensures content is hidden when collapsed */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.results-header:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.results-header h3 {
+    margin: 0;
+    color: #ffd700;
+}
+
+.toggle-results-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* --- New: Padding for collapsible content --- */
+#single-prediction-body {
+    padding: 0 20px 20px; /* Add padding to the content, not the header */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.loading {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffd700;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- Collapsed State --- */
+#preprocessing-results.collapsed {
+    display: none;
+}
+
+/* --- Training Loading Overlay --- */
+.training-loading-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 200px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.training-loading-overlay p {
+    margin-top: 20px;
+    color: #ccc;
+}
+/* --- Training Results --- */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.metric-card {
+    background: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border-top: 3px solid #ffd700;
+}
+
+.metric-card h4 {
+    margin: 0 0 10px;
+    color: #ccc;
+}
+
+.metric-card p {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.plots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.plot-card {
+    background: #2a2a2a;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.plot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.plot-header h4 {
+    margin: 0;
+}
+
+.download-btn {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: color 0.3s;
+}
+
+.download-btn:hover {
+    color: #ffd700;
+}
+
+.plot-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.sim-link {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.sim-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .control-panel, .hyperparam-group {
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    .train-controls, .upload-model-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hyperparam-group {
+        border-left: none;
+        padding-left: 0;
+        border-top: 2px solid rgba(255, 255, 255, 0.3);
+        padding-top: 20px;
+        align-items: stretch; 
+    }
+
+    #single-prediction-form {
+        grid-template-columns: 1fr; /* Stack the inputs in a single column on mobile */
+    }
+}
