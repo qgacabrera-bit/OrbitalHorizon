@@ -1032,7 +1032,13 @@ function init() {
 
     if (radiusSlider && radiusInput) {
         radiusSlider.addEventListener('input', (event) => updatePlanetRadius(event.target.valueAsNumber));
-        radiusInput.addEventListener('input', (event) => updatePlanetRadius(event.target.value)); // Pass string to handle decimals
+        radiusInput.addEventListener('input', (event) => {
+            const max = parseFloat(event.target.max);
+            if (parseFloat(event.target.value) > max) {
+                event.target.value = max;
+            }
+            updatePlanetRadius(event.target.value);
+        });
     }
     if (tempSlider && tempInput) {
         tempSlider.addEventListener('input', (event) => updatePlanetTemperature(event.target.valueAsNumber));
@@ -1045,7 +1051,16 @@ function init() {
 
     if (stellarRadiusSlider && stellarRadiusInput) {
         stellarRadiusSlider.addEventListener('input', (event) => updateStellarRadius(event.target.valueAsNumber));
-        stellarRadiusInput.addEventListener('input', (event) => updateStellarRadius(event.target.value));
+        stellarRadiusInput.addEventListener('input', (event) => {
+            const max = parseFloat(event.target.max);
+            if (parseFloat(event.target.value) > max) {
+                if (typeof showInputNotification === 'function') {
+                    showInputNotification(`Value capped at max stellar radius: ${max}`);
+                }
+                event.target.value = max;
+            }
+            updateStellarRadius(event.target.value);
+        });
     }
     if (stellarTempSlider && stellarTempInput) {
         stellarTempSlider.addEventListener('input', (event) => updateStellarTemperature(event.target.valueAsNumber));

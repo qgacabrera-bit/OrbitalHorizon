@@ -867,3 +867,22 @@ async function runSinglePrediction() {
         console.error("❌ Single prediction error:", err);
     }
 }
+
+// --- Enforce Min/Max on Single Prediction Inputs ---
+document.addEventListener('DOMContentLoaded', () => {
+    const singlePredictionForm = document.getElementById('single-prediction-form');
+    if (singlePredictionForm) {
+        const inputs = singlePredictionForm.querySelectorAll('input[type="number"]');
+        
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                const min = parseFloat(input.min);
+                const max = parseFloat(input.max);
+                let value = parseFloat(input.value);
+
+                if (value > max) input.value = max;
+                if (value < min && input.value !== '') input.value = min;
+            });
+        });
+    }
+});
