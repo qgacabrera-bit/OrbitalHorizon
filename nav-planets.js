@@ -72,8 +72,8 @@ if (navContainer) {
     // Planet Data (Texture, Link) - Positions will be assigned dynamically
     const planetsData = [
         { name: 'AI Workbench', description: 'Upload datasets, train models, and discover new exoplanets using our machine learning tools.', texture: 'https://i.imgur.com/jxuq7Wj.jpeg', link: 'data-processing.html' },
-        { name: 'Demo', description: 'View a gallery of project visuals and a video demonstration.', texture: 'https://i.imgur.com/v9vKt4T.jpeg', link: 'about.html#demo' },
-        { name: 'About', description: 'Learn about the project, its goals, and the science of exoplanet discovery.', texture: 'https://i.imgur.com/nVEgUBd.jpeg', link: 'about.html#about' },
+        { name: 'Demo', description: 'View a gallery of project visuals and a video demonstration.', texture: 'https://i.imgur.com/v9vKt4T.jpeg', link: '#demo' },
+        { name: 'About', description: 'Learn about the project, its goals, and the science of exoplanet discovery.', texture: 'https://i.imgur.com/nVEgUBd.jpeg', link: '#about' },
         { name: 'Simulator', description: 'Create and explore your own custom planets in our interactive 3D simulator.', texture: 'https://i.imgur.com/pp6V4rC.jpeg', link: 'planet.html' },
         { name: 'Team', description: 'Meet the dedicated team behind the Orbital Horizon project.', texture: 'https://i.imgur.com/I4PhNbE.jpeg', link: 'team.html' },
     ];

@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
     }
 });
 
-// --- Website Navigation Logic (for index.html) ---
+// --- Website Navigation Logic ---
 const sideNavElement = document.querySelector('nav.side-nav');
 
 if (sideNavElement) {
@@ -17,26 +17,23 @@ if (sideNavElement) {
 
     function updateActiveSection() {
         let current = '';
-        const scrollPosition = window.pageYOffset + window.innerHeight / 1.5;
+        const scrollY = window.pageYOffset;
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            const sectionBottom = sectionTop + sectionHeight;
 
-            // Check if the scroll position is within the section's bounds
-            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            // Highlight when the top of the section is near the top of the viewport.
+            // A 150px offset gives a good feel.
+            if (scrollY >= sectionTop - 150 && scrollY < sectionTop + sectionHeight - 150) {
                 current = section.getAttribute('id');
             }
         });
 
-        // If no section is in view, optionally set a default or keep the last active
-        if (!current && sections.length > 0) {
-            const lastSection = sections[sections.length - 1];
-            if (scrollPosition >= lastSection.offsetTop) {
-                current = lastSection.getAttribute('id'); // Handle case where scrolled past last section
-            }
-        }
+        // If scrolled to the very bottom of the page, ensure the last section is active.
+        // A 5px buffer accounts for browser inconsistencies.
+        const isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 5;
+        if (isAtBottom) current = 'methodology';
 
         navLinks.forEach(link => {
             link.classList.remove('active');
@@ -62,22 +59,24 @@ const planetNavBack = document.getElementById('nav-back-btn');
 
 // This logic should only apply to the homepage which has a hero section.
 if (heroSection) {
+    const aboutSection = document.getElementById('about');
     function toggleNavOnScroll() {
-        // Use window.innerHeight as it's equivalent to 100vh
-        const shouldBeVisible = window.pageYOffset > window.innerHeight * 0.95;
+        // Determine the point at which to show the navigation.
+        // This is set to trigger when the top of the 'about' section is 100px from the top of the viewport.
+        const navTriggerPoint = aboutSection ? aboutSection.offsetTop + 400 : window.innerHeight;
+        const showMainNavigation = window.pageYOffset > navTriggerPoint;
 
-        if (shouldBeVisible) { // Show nav just before hero is fully gone
-            topNav.classList.add('top-nav--visible');
-            if (sideNav) sideNav.classList.add('side-nav--visible');
-            chatbotContainer.classList.add('chatbot-container--visible');
-            if (planetNavNext) planetNavNext.classList.add('planet-nav-btn--visible');
-            if (planetNavBack) planetNavBack.classList.add('planet-nav-btn--visible');
-        } else {
-            topNav.classList.remove('top-nav--visible');
-            if (sideNav) sideNav.classList.remove('side-nav--visible');
-            chatbotContainer.classList.remove('chatbot-container--visible');
-            if (planetNavNext) planetNavNext.classList.remove('planet-nav-btn--visible');
-            if (planetNavBack) planetNavBack.classList.remove('planet-nav-btn--visible');
+        // Toggle main navigation visibility
+        topNav.classList.toggle('top-nav--visible', showMainNavigation);
+        if (sideNav) sideNav.classList.toggle('side-nav--visible', showMainNavigation);
+        if (planetNavNext) planetNavNext.classList.toggle('planet-nav-btn--visible', showMainNavigation);
+        if (planetNavBack) planetNavBack.classList.toggle('planet-nav-btn--visible', showMainNavigation);
+
+        // Show the chatbot once the user scrolls past the hero section and keep it visible.
+        // A 50% threshold works well.
+        const showChatbot = window.pageYOffset > window.innerHeight * 0.5;
+        if (chatbotContainer) {
+            chatbotContainer.classList.toggle('chatbot-container--visible', showChatbot);
         }
     }
 

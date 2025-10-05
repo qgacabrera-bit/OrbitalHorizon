@@ -19,15 +19,17 @@ const processingOverlay = document.getElementById("processing-overlay");
 const processingOverlayText = document.getElementById("processing-overlay-text");
 const uploadSection = document.getElementById("uploadSection");
 
-// --- Sample Dataset Buttons ---
-const runKeplerSampleBtn = document.getElementById("runKeplerSample");
-const runK2SampleBtn = document.getElementById("runK2Sample");
-const runTessSampleBtn = document.getElementById("runTessSample");
+// --- New Sample Dataset Controls ---
+const sampleDatasetSelect = document.getElementById("sampleDatasetSelect");
+const runSampleBtn = document.getElementById("runSampleBtn");
+const downloadSampleLink = document.getElementById("downloadSampleLink");
 
 // --- Single Prediction Elements ---
 const singlePredictBtn = document.getElementById("singlePredictBtn");
 const singlePredictionResultDiv = document.getElementById("single-prediction-result");
+const clearSinglePredictBtn = document.getElementById("clearSinglePredictBtn");
 const singlePredictionHeader = document.getElementById("single-prediction-header");
+const singlePredictionValidationError = document.getElementById("single-prediction-validation-error");
 const singlePredictionBody = document.getElementById("single-prediction-body");
 
 // --- Collapsible Preprocessing Section ---
@@ -133,6 +135,26 @@ if (singlePredictBtn) {
     singlePredictBtn.addEventListener("click", runSinglePrediction);
 }
 
+if (clearSinglePredictBtn) {
+    clearSinglePredictBtn.addEventListener("click", () => {
+        // Clear all input fields in the single prediction form
+        document.getElementById("sp-radius").value = '';
+        document.getElementById("sp-temp").value = '';
+        document.getElementById("sp-insol").value = '';
+        document.getElementById("sp-period").value = '';
+        document.getElementById("sp-stellar-temp").value = '';
+        document.getElementById("sp-stellar-radius").value = '';
+
+        // Hide and clear the result div
+        singlePredictionResultDiv.innerHTML = '';
+        singlePredictionResultDiv.style.display = 'none';
+
+        // Hide and clear validation errors
+        singlePredictionValidationError.style.display = 'none';
+        document.querySelectorAll('#single-prediction-form input').forEach(input => input.classList.remove('invalid'));
+    });
+}
+
 
 // --- New: Handle Sample Dataset Runs ---
 async function runSample(datasetName) {
@@ -176,17 +198,20 @@ async function runSample(datasetName) {
   }
 }
 
-if (runKeplerSampleBtn) {
-  runKeplerSampleBtn.addEventListener("click", () => runSample("kepler"));
-}
-if (runK2SampleBtn) {
-  runK2SampleBtn.addEventListener("click", () => runSample("k2"));
-}
-if (runTessSampleBtn) {
-  runTessSampleBtn.addEventListener("click", () => runSample("tess"));
+if (runSampleBtn && sampleDatasetSelect) {
+  runSampleBtn.addEventListener("click", () => {
+    const selectedDataset = sampleDatasetSelect.value;
+    runSample(selectedDataset);
+  });
 }
 
-// --- Modified uploadAndProcess to be reusable ---
+if (downloadSampleLink && sampleDatasetSelect) {
+  sampleDatasetSelect.addEventListener("change", () => {
+    const selectedDataset = sampleDatasetSelect.value;
+    downloadSampleLink.href = `https://project-oracle.onrender.com/download_sample/${selectedDataset}`;
+  });
+}
+
 async function uploadAndProcess(file, isSampleRun = false) {
   if (!file) return; // No alert needed for sample runs
 
@@ -470,24 +495,43 @@ predictBtn.addEventListener("click", async () => {
 
     if (confirmedPlanets.length > 0) {
       predictionHTML += `<div class="plot-card">
-                            <div class="plot-header"><h4>Discovered Planets (Prediction = 2)</h4></div>`;
-      let tableHTML = "<table><tr><th>Original Row #</th><th>Action</th></tr>";
-      confirmedPlanets.forEach(planet => {
+                            <div class="plot-header">
+                                <h4>Discovered Planets (Prediction = 2)</h4>
+                                <button id="show-less-planets-btn" class="sample-link-btn" style="display: none;">Show Less</button>
+                            </div>
+                            <table id="discovered-planets-table">
+                                <tr><th>Original Row #</th><th>Action</th></tr>`;
+      
+      confirmedPlanets.forEach((planet, index) => {
         // Create URL parameters from the planet's data
         const params = new URLSearchParams({
-            radius: planet.data.pl_rade || 50, // Default to 50 if null
+            radius: planet.data.pl_rade || 1, // Default to 1 Earth Radii
             temp: planet.data.pl_eqt || 0,
-            insol: planet.data.pl_insol || 50,
+            insol: planet.data.pl_insol || 1,
             stellar_temp: planet.data.st_teff || 'N/A',
             name: planet.data.kepoi_name || planet.data.pl_name || `Predicted Planet #${planet.index}`,
             stellar_radius: planet.data.st_rad || 'N/A',
             period: planet.data.pl_orbper || 'N/A'
         }).toString();
-        tableHTML += `<tr><td>${planet.index}</td><td><a href="planet.html?${params}" target="_blank" class="sim-link">Visualize in Simulator <i class="fas fa-external-link-alt"></i></a></td></tr>`;
+
+        // Hide rows after the 5th one
+        const isHidden = index >= 5;
+        predictionHTML += `<tr class="planet-result-row" ${isHidden ? 'style="display: none;"' : ''}>
+                                <td>${planet.index}</td>
+                                <td><a href="planet.html?${params}" target="_blank" class="sim-link">Visualize in Simulator <i class="fas fa-external-link-alt"></i></a></td>
+                           </tr>`;
       });
-      tableHTML += "</table>";
-      predictionHTML += tableHTML;
-      predictionHTML += `</div>`;
+
+      predictionHTML += `</table>`;
+
+      // Add "Show More" button if there are more than 5 planets
+      if (confirmedPlanets.length > 5) {
+        predictionHTML += `<div style="text-align: center; margin-top: 15px;">
+                               <button id="show-more-planets-btn" class="sample-link-btn">Show More (${confirmedPlanets.length - 5} more)</button>
+                           </div>`;
+      }
+
+      predictionHTML += `</div>`; // End plot-card
     }
 
     trainingResultsDiv.innerHTML = predictionHTML;
@@ -499,6 +543,25 @@ predictBtn.addEventListener("click", async () => {
     if (uploadSection) uploadSection.style.display = "flex";
 
     processingOverlay.style.display = "none";
+
+    // Add event listeners for "Show More" and "Show Less" buttons
+    const showMoreBtn = document.getElementById('show-more-planets-btn');
+    const showLessBtn = document.getElementById('show-less-planets-btn');
+    if (showMoreBtn && showLessBtn) {
+        showMoreBtn.addEventListener('click', () => {
+            document.querySelectorAll('.planet-result-row').forEach(row => row.style.display = 'table-row');
+            showMoreBtn.style.display = 'none';
+            showLessBtn.style.display = 'inline-block';
+        });
+
+        showLessBtn.addEventListener('click', () => {
+            document.querySelectorAll('.planet-result-row').forEach((row, index) => {
+                if (index >= 5) row.style.display = 'none';
+            });
+            showLessBtn.style.display = 'none';
+            showMoreBtn.style.display = 'inline-block';
+        });
+    }
 
   } catch (err) {
     console.error("❌ Prediction error:", err);
@@ -572,18 +635,36 @@ predictWithCustomBtn.addEventListener("click", async () => {
                        </div>`;
 
     if (confirmedPlanets.length > 0) {
-      predictionHTML += `<div class="plot-card"><div class="plot-header"><h4>Discovered Planets (Prediction = 2)</h4></div>`;
-      let tableHTML = "<table><tr><th>Original Row #</th><th>Action</th></tr>";
-      confirmedPlanets.forEach(planet => {
+      predictionHTML += `<div class="plot-card">
+                            <div class="plot-header">
+                                <h4>Discovered Planets (Prediction = 2)</h4>
+                                <button id="show-less-planets-btn-custom" class="sample-link-btn" style="display: none;">Show Less</button>
+                            </div>
+                            <table id="discovered-planets-table-custom">
+                                <tr><th>Original Row #</th><th>Action</th></tr>`;
+      
+      confirmedPlanets.forEach((planet, index) => {
         const params = new URLSearchParams({
-            radius: planet.data.pl_rade || 50, temp: planet.data.pl_eqt || 0, insol: planet.data.pl_insol || 50,
+            radius: planet.data.pl_rade || 1, temp: planet.data.pl_eqt || 0, insol: planet.data.pl_insol || 1,
             stellar_temp: planet.data.st_teff || 'N/A', name: planet.data.kepoi_name || planet.data.pl_name || `Predicted Planet #${planet.index}`,
             stellar_radius: planet.data.st_rad || 'N/A', period: planet.data.pl_orbper || 'N/A'
         }).toString();
-        tableHTML += `<tr><td>${planet.index}</td><td><a href="planet.html?${params}" target="_blank" class="sim-link">Visualize in Simulator <i class="fas fa-external-link-alt"></i></a></td></tr>`;
+
+        const isHidden = index >= 5;
+        predictionHTML += `<tr class="planet-result-row-custom" ${isHidden ? 'style="display: none;"' : ''}>
+                                <td>${planet.index}</td>
+                                <td><a href="planet.html?${params}" target="_blank" class="sim-link">Visualize in Simulator <i class="fas fa-external-link-alt"></i></a></td>
+                           </tr>`;
       });
-      tableHTML += "</table>";
-      predictionHTML += tableHTML;
+
+      predictionHTML += `</table>`;
+
+      if (confirmedPlanets.length > 5) {
+        predictionHTML += `<div style="text-align: center; margin-top: 15px;">
+                               <button id="show-more-planets-btn-custom" class="sample-link-btn">Show More (${confirmedPlanets.length - 5} more)</button>
+                           </div>`;
+      }
+
       predictionHTML += `</div>`;
     }
 
@@ -594,6 +675,25 @@ predictWithCustomBtn.addEventListener("click", async () => {
     if (uploadSection) uploadSection.style.display = "flex";
 
     processingOverlay.style.display = "none";
+
+    // Add event listeners for the custom model's "Show More" and "Show Less" buttons
+    const showMoreBtnCustom = document.getElementById('show-more-planets-btn-custom');
+    const showLessBtnCustom = document.getElementById('show-less-planets-btn-custom');
+    if (showMoreBtnCustom && showLessBtnCustom) {
+        showMoreBtnCustom.addEventListener('click', () => {
+            document.querySelectorAll('.planet-result-row-custom').forEach(row => row.style.display = 'table-row');
+            showMoreBtnCustom.style.display = 'none';
+            showLessBtnCustom.style.display = 'inline-block';
+        });
+
+        showLessBtnCustom.addEventListener('click', () => {
+            document.querySelectorAll('.planet-result-row-custom').forEach((row, index) => {
+                if (index >= 5) row.style.display = 'none';
+            });
+            showLessBtnCustom.style.display = 'none';
+            showMoreBtnCustom.style.display = 'inline-block';
+        });
+    }
 
   } catch (err) {
     console.error("❌ Custom prediction error:", err);
@@ -678,23 +778,48 @@ downloadModelBtn.addEventListener("click", async () => {
 
 // --- New: Single Prediction Logic ---
 async function runSinglePrediction() {
-    const features = {
-        pl_rade: parseFloat(document.getElementById("sp-radius").value) || 0,
-        pl_eqt: parseFloat(document.getElementById("sp-temp").value) || 0,
-        pl_insol: parseFloat(document.getElementById("sp-insol").value) || 0,
-        pl_orbper: parseFloat(document.getElementById("sp-period").value) || 0,
-        st_teff: parseFloat(document.getElementById("sp-stellar-temp").value) || 0,
-        st_rad: parseFloat(document.getElementById("sp-stellar-radius").value) || 0,
-    };
+    const featureInputs = [
+        { id: "sp-radius", key: "pl_rade" },
+        { id: "sp-temp", key: "pl_eqt" },
+        { id: "sp-insol", key: "pl_insol" },
+        { id: "sp-period", key: "pl_orbper" },
+        { id: "sp-stellar-temp", key: "st_teff" },
+        { id: "sp-stellar-radius", key: "st_rad" },
+    ];
 
-    // Basic validation
-    if (Object.values(features).some(v => v === 0)) {
-        alert("Please fill in all fields with non-zero values for an accurate prediction.");
+    let isValid = true;
+    const features = {};
+
+    // --- Input Validation ---
+    singlePredictionValidationError.style.display = 'none'; // Hide previous errors
+    featureInputs.forEach(item => {
+        const inputEl = document.getElementById(item.id);
+        const value = inputEl.value;
+
+        // Remove invalid class as user types
+        inputEl.addEventListener('input', () => inputEl.classList.remove('invalid'), { once: true });
+
+        if (value === '' || isNaN(parseFloat(value))) {
+            inputEl.classList.add('invalid');
+            isValid = false;
+        } else {
+            inputEl.classList.remove('invalid');
+            features[item.key] = parseFloat(value);
+        }
+    });
+
+    if (!isValid) {
+        singlePredictionValidationError.textContent = "Please enter a valid number in all highlighted fields.";
+        singlePredictionValidationError.style.display = 'block';
+        singlePredictionResultDiv.style.display = 'none'; // Hide any previous results
         return;
     }
 
     singlePredictionResultDiv.style.display = "block";
     singlePredictionResultDiv.innerHTML = `<div class="step"><span class="loading"></span> Running prediction...</div>`;
+
+    // Convert temperature from Celsius (input) to Kelvin (for model)
+    features.pl_eqt = features.pl_eqt + 273.15;
 
     try {
         const response = await fetch("https://project-oracle.onrender.com/predict_single", {
@@ -729,7 +854,7 @@ async function runSinglePrediction() {
         if (result.prediction === 1 || result.prediction === 2) {
             const params = new URLSearchParams({
                 radius: features.pl_rade,
-                temp: features.pl_eqt - 273.15, // Convert K to C for simulator
+                temp: features.pl_eqt, // Pass Kelvin directly to simulator
                 insol: features.pl_insol,
                 stellar_temp: features.st_teff,
                 name: "Predicted Object",

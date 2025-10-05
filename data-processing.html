@@ -29,7 +29,6 @@
     <nav class="top-nav">
         <ul>
             <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
             <li><a href="data-processing.html" class="nav-link active"><i class="fas fa-flask"></i> AI Workbench</a></li>
             <li><a href="planet.html" class="nav-link"><i class="fas fa-meteor"></i> Interactive Simulator</a></li>
             <li><a href="team.html" class="nav-link"><i class="fas fa-users"></i> The Team</a></li>
@@ -43,43 +42,13 @@
                 Welcome to the AI Workbench. Upload a dataset of potential exoplanet candidates, or use one of our samples below. Here you can preprocess data, train a new model, or use pre-trained models to discover new planets from NASA's vast collection of data.
             </p>
 
-            <!-- === SAMPLE DATASETS === -->
-            <div class="sample-data-panel">
-                <h4>Don't have a dataset? Try one of ours.</h4>
-                <p>Run a sample dataset to see the AI Workbench in action, or download the CSV to use it yourself.</p>
-                <p>Curious about the steps involved? See our <a href="about.html#methodology" class="sim-link">methodology</a> to understand how we process the data from start to finish.</p>
-                <div class="sample-links">
-                    <div class="sample-item">
-                        <span class="sample-name">Kepler Dataset</span>
-                        <div class="sample-actions">
-                            <button id="runKeplerSample" class="sample-link-btn"><i class="fas fa-play-circle"></i> Run</button>
-                            <a href="https://project-oracle.onrender.com/download_sample/kepler" class="sample-link-btn"><i class="fas fa-download"></i> Download</a>
-                        </div>
-                    </div>
-                    <div class="sample-item">
-                        <span class="sample-name">K2 Dataset</span>
-                        <div class="sample-actions">
-                            <button id="runK2Sample" class="sample-link-btn"><i class="fas fa-play-circle"></i> Run</button>
-                            <a href="https://project-oracle.onrender.com/download_sample/k2" class="sample-link-btn"><i class="fas fa-download"></i> Download</a>
-                        </div>
-                    </div>
-                    <div class="sample-item">
-                        <span class="sample-name">TESS Dataset</span>
-                        <div class="sample-actions">
-                            <button id="runTessSample" class="sample-link-btn"><i class="fas fa-play-circle"></i> Run</button>
-                            <a href="https://project-oracle.onrender.com/download_sample/tess" class="sample-link-btn"><i class="fas fa-download"></i> Download</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- === SINGLE PREDICTION PANEL === -->
+                        <!-- === SINGLE PREDICTION PANEL === -->
             <div id="single-prediction-panel" class="control-panel column collapsible-panel">
                 <div class="results-header" id="single-prediction-header">
                     <h4>Single Object Prediction</h4>
-                    <button class="toggle-results-btn" title="Toggle Panel"><i class="fas fa-chevron-down"></i></button>
+                    <button class="toggle-results-btn" title="Toggle Panel"><i class="fas fa-chevron-up"></i></button>
                 </div>
-                <div id="single-prediction-body" class="collapsed">
+                <div id="single-prediction-body">
                     <p>Enter the parameters of a celestial object to get an instant prediction from our pre-trained model.</p>
                     <div id="single-prediction-form" class="hyperparam-group">
                         <label>Planet Radius (Earth Radii): <input type="number" id="sp-radius" placeholder="1.0"></label>
@@ -89,12 +58,35 @@
                         <label>Stellar Temperature (K): <input type="number"id="sp-stellar-temp" placeholder="5778"></label>
                         <label>Stellar Radius (Solar Radii): <input type="number" id="sp-stellar-radius" placeholder="1.0"></label>
                     </div>
+                    <div id="single-prediction-validation-error" class="validation-error" style="display: none;"></div>
                     <div class="action-buttons">
-                        <button id="singlePredictBtn">Predict Object</button>
+                        <button id="singlePredictBtn">Predict</button>
+                        <button id="clearSinglePredictBtn" class="secondary-btn">Clear</button>
                     </div>
                 </div>
                 <div id="single-prediction-result" style="display: none;"></div>
             </div>
+
+            <!-- === SAMPLE DATASETS === -->
+            <div class="sample-data-panel">
+                <h4>Don't have a dataset? Try one of ours.</h4>
+                <p>Run a sample dataset to see the AI Workbench in action, or download the CSV to use it yourself.</p>
+                <p>Curious about the steps involved? See our <a href="index.html#methodology" class="sim-link">methodology</a> to understand how we process the data from start to finish.</p>
+                <div class="sample-controls">
+                    <select id="sampleDatasetSelect" class="sample-select">
+                        <option value="kepler">Kepler Dataset</option>
+                        <option value="k2">K2 Dataset</option>
+                        <option value="tess">TESS Dataset</option>
+                    </select>
+                    <button id="runSampleBtn" class="sample-link-btn">
+                        <i class="fas fa-play-circle"></i> Run Selected
+                    </button>
+                    <a id="downloadSampleLink" href="https://project-oracle.onrender.com/download_sample/kepler" class="sample-link-btn">
+                        <i class="fas fa-download"></i> Download Selected
+                    </a>
+                </div>
+            </div>
+
 
             <!-- === CONTROL PANELS === -->
             <div id="uploadSection" class="control-panel">

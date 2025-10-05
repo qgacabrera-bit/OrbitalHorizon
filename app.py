@@ -567,7 +567,7 @@ def predict_single_object():
     # This should match the features the pre-trained model was trained on.
     # We'll use the Kepler model's features as a default.
     model_features = [
-        'pl_rade', 'pl_orbper', 'pl_trandep', 'pl_trandur', 
+        'pl_rade', 'pl_orbper', 'pl_trandep', 'pl_trandurh', 
         'pl_eqt', 'pl_insol', 'st_teff', 'st_rad', 'ra', 'dec'
     ]
 

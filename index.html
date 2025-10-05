@@ -25,7 +25,6 @@
     <nav class="top-nav">
         <ul>
             <li><a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
             <li><a href="data-processing.html" class="nav-link"><i class="fas fa-flask"></i> AI Workbench</a></li>
             <li><a href="planet.html" class="nav-link"><i class="fas fa-meteor"></i> Interactive Simulator</a></li>
             <li><a href="team.html" class="nav-link"><i class="fas fa-users"></i> The Team</a></li>
@@ -36,32 +35,195 @@
         <a href="index.html" class="logo-container">
             <img src="https://i.imgur.com/YZwEU6F.png" alt="Orbital Horizon Logo" class="logo">
         </a>
-         <a href="about.html" class="scroll-down-indicator"><div class="scroll-down-line-mask"><span></span></div></a>
+         <a href="#about" class="scroll-down-indicator"><div class="scroll-down-line-mask"><span></span></div></a>
     </section>
+
+    <nav class="side-nav">
+        <ul>
+            <li><a href="#about" class="nav-link active"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="#demo" class="nav-link"><i class="fas fa-images"></i> Project Demo</a></li>
+            <li><a href="#methodology" class="nav-link"><i class="fas fa-cogs"></i> Methodology</a></li>
+        </ul>
+    </nav>
 
 
     <main class="content-main">
         <!-- Container for 3D planet navigation -->
         <div id="planet-nav-container">
             <!-- Three.js canvas will be injected here -->
-        </div>
             <!-- Planet Navigation Controls -->
-    <button id="nav-back-btn" class="planet-nav-btn"><i class="fas fa-chevron-left"></i></button>
-    <button id="nav-next-btn" class="planet-nav-btn"><i class="fas fa-chevron-right"></i></button>
-    <!-- Label for the focused planet -->
-        <br><br><br><br><br>
+            <button id="nav-back-btn" class="planet-nav-btn"><i class="fas fa-chevron-left"></i></button>
+            <button id="nav-next-btn" class="planet-nav-btn"><i class="fas fa-chevron-right"></i></button>
+            <!-- Label for the focused planet -->
             <h2 id="planet-label"></h2>
-    <!-- Description for the focused planet -->
+            <!-- Description for the focused planet -->
             <p id="planet-description"></p>
+        </div>
 
+    <section id="about" class="fade-in-section">
+        <div class="section-video-background">
+            <video src="https://github.com/qgacabrera-bit/OrbitalHorizon/raw/refs/heads/main/assets/3194277-hd_1920_1080_30fps%20(2).mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="section-content">
+            <h1>Orbital Horizon</h1>
+            <p class="center-text">The Limit to Vision.<br><br></p>
+        
+            <h2 class="section-title">Introduction</h2>
+            <p class="justified-text">Orbital Horizon is an interactive website created to investigate exoplanetary findings through actual NASA records. Based on the Kepler, K2 and TESS missions, the project turns raw astronomical data into insights that are easily accessible so that users can understand how scientists detect the presence of potential planets beyond our solar system.</p>
+            <h2 class="section-title">Our Mission</h2>
+            <p class="justified-text">We created Orbital Horizon to bridge the gap between advanced astrophysical data and curious minds. The Kepler, K2, and TESS missions have generated vast amounts of valuable data, but much of it remains highly technical. Our goal is to make these groundbreaking discoveries approachable for students, researchers, and space enthusiasts alike. By combining machine learning with interactive visualizations, we aim to inspire curiosity and foster a deeper understanding of exoplanet exploration.</p>
+
+            <h2 class="section-title">How It Works</h2>
+            <p class="justified-text">Orbital Horizon is built on meticulously curated exoplanet data from NASA’s Kepler, K2, and TESS missions, encompassing thousands of potential exoplanets. We clean and preprocess this data to ensure accuracy, focusing on key attributes like orbital period, stellar radius, transit depth, and host star properties. Through Exploratory Data Analysis (EDA), we uncover meaningful patterns and relationships within the data.
+            <br><br>
+            Using advanced machine learning, we trained classification models to distinguish between confirmed planets, false positives, and potential exoplanets. The most effective model powers our platform’s predictive capabilities. Paired with immersive 3D visualizations created using Three.js and custom tools, Orbital Horizon offers real-time, interactive simulations of planetary systems, bringing the science of exoplanet detection to life.</p>
+
+            <h2 class="section-title">What We Offer</h2>
+            <p class="justified-text">Orbital Horizon combines cutting-edge predictive modeling with captivating visualizations. Our machine learning model calculates the likelihood of a celestial object being an exoplanet, while our visualization engine renders dynamic, real-time star systems. By blending the robust data from Kepler, K2, and TESS with modern web technology, Orbital Horizon delivers an experience that is both scientifically rigorous and engaging, inviting everyone to explore the vast universe of exoplanets.</p>
+        </div>
+    </section>
+
+    <section id="demo" class="gallery-section fade-in-section">
+        <div class="section-video-background">
+            <video src="https://github.com/qgacabrera-bit/OrbitalHorizon/raw/refs/heads/main/assets/3%20(1).mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="section-content">
+            <h2 class="section-title">Project Demo</h2>
+            
+            <div class="video-container">
+                <iframe width="1312" height="738" src="https://www.youtube.com/embed/Wgbjt81N7xo" title="&quot;You'll Be In My Heart Forever&quot;  | T.I.P. Hymn Video (2023 Version)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <div class="gallery-item-front">
+                            <img src="https://i.imgur.com/JGUMGQ9.png" alt="Step 1">
+                            <p class="caption">1. Upload Data</p>
+                        </div>
+                        <div class="gallery-item-back">
+                            <img src="https://i.imgur.com/8CzxuDs.png" alt="3D Planet View">
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <div class="gallery-item-front">
+                            <img src="https://i.imgur.com/VJOxboB.png" alt="A screenshot of a Martian environment simulation.">
+                            <p class="caption">2. Press Preprocess Button</p>
+                        </div>
+                        <div class="gallery-item-back">
+                            <img src="https://i.imgur.com/VIj45Z7.png" alt="3D Planet View">
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <div class="gallery-item-front">
+                            <img src="https://i.imgur.com/1L5buyq.png" alt="A screenshot of the user interface dashboard.">
+                            <p class="caption">3. Predict with our pre-trained model</p>
+                        </div>
+                        <div class="gallery-item-back">
+                            <img src="https://i.imgur.com/2z91jSu.png" alt="3D Planet View">
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <div class="gallery-item-front">
+                            <img src="https://i.imgur.com/eaesjYZ.png" alt="Another screenshot of the project in action.">
+                            <p class="caption">4. Visualize!</p>
+                        </div>
+                        <div class="gallery-item-back">
+                            <img src="https://i.imgur.com/3XASbLi.png" alt="3D Planet View">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methodology" class="fade-in-section">
+        <div class="section-video-background">
+            <video src="https://github.com/qgacabrera-bit/OrbitalHorizon/raw/refs/heads/main/assets/4%20(1).mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="section-content">
+            <h2 class="section-title">Methodology</h2>
+            <div class="methodology-navigator">
+                <div class="methodology-steps-container" id="methodology-steps">
+                    <!-- Step 1 -->
+                    <div class="methodology-step">
+                        <h3>1. Data Preprocessing</h3>
+                        <p class="justified-text">Our process begins by harmonizing data from three key NASA missions: Kepler, K2, and TESS. We extract a uniform set of features like planet radius, orbital period, and stellar temperature and standardize the classification labels into three distinct classes: Confirmed Planet, Candidate, and False Positive. To ensure data quality, we fill in any missing values using the median of the respective column and unify feature names across all datasets. This creates a clean and consistent foundation for our machine learning models.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="methodology-step">
+                        <h3>2. XGBClassifier Model</h3>
+                        <p class="justified-text">We use the XGBClassifier, a powerful machine learning algorithm, as our primary model. It excels at identifying complex patterns in astronomical data, making it ideal for distinguishing between real exoplanets and false alarms. We fine-tune its parameters for each dataset to achieve the highest accuracy. The model also generates feature importance plots, which show us which astronomical measurements are most critical for making a prediction, adding a layer of transparency to the AI's decisions.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="methodology-step">
+                        <h3>3. LightGBM Model</h3>
+                        <p class="justified-text">As a complementary model, we also employ LightGBM. It is known for its incredible speed and efficiency, especially with the massive datasets common in astronomy. By using a different learning approach, LightGBM provides a valuable performance benchmark against XGBoost, ensuring our findings are robust and reliable across different analytical methods.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="methodology-step">
+                        <h3>4. Planet Prediction</h3>
+                        <p class="justified-text">Our trained models analyze the data and calculate the probability that an object is a Confirmed Planet, a Candidate, or a False Positive. The class with the highest probability becomes the final prediction. This allows our AI to act as a triage system, flagging the most promising signals for further investigation. In the AI Workbench, users can upload their own data and get instant predictions from our specialized, pre-trained models for the Kepler, K2, and TESS datasets, ensuring the most accurate results for their specific data source.</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="methodology-step">
+                        <h3>Feature Importance Analysis</h3>
+                        <p class="justified-text">Understanding what drives a model's decisions is key to trusting its results. During training, we analyze and visualize feature importance, revealing which characteristics—such as transit depth or orbital period—are most influential in the classification process. This insight is critical for model refinement and interpretation. Below are the feature importance plots generated from our three pre-trained models.</p>
+                        <div class="methodology-step-images">
+                            <img src="https://i.imgur.com/x43SkyN.png" alt="Kepler Mission Data" />
+                            <img src="https://i.imgur.com/3cTjeIe.png" alt="K2 Mission Data" />
+                            <img src="https://i.imgur.com/Cq9r1De.png" alt="TESS Mission Data" />
+                        </div>
+                    </div>
+                </div>
+                <div class="methodology-nav-controls">
+                    <button id="methodology-prev-btn" class="methodology-nav-btn" title="Previous Step" disabled><i class="fas fa-chevron-left"></i></button>
+                    <div id="methodology-nav-dots"></div>
+                    <button id="methodology-next-btn" class="methodology-nav-btn" title="Next Step"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
     </main>
     
     <footer>
         <p>&copy; 2025 Technological Institute of the Philippines. All rights reserved.</p>
     </footer>
 
+    <div id="image-modal" class="image-modal hidden">
+        <span id="close-modal">&times;</span>
+        <img id="modal-img" src="" alt="Zoomed image">
+    </div>
+
+    <div class="chatbot-container">
+        <div class="chatbot-icon" onclick="toggleChat()">
+            <img src="https://i.imgur.com/9S44Fwz.png" alt="Chatbot Icon">
+        </div>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header" id="chat-header">
+                <h3>Astra</h3>
+                <span class="close-btn" onclick="toggleChat()">&times;</span>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="bot-message">Hello! I'm Astra, I'm here to answer your questions about Orbital Horizon. What would you like to know?</div>
+            </div>
+            <div class="question-buttons-container" id="question-buttons-container"></div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Ask a question..." onkeypress="handleKeyPress(event)">
+                <button id="send-btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
     <script src="nav-planets.js"></script>
+    <script src="chatbot.js"></script>
 
 
 </body>
